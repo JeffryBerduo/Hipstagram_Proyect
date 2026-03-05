@@ -1,0 +1,119 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #ffffff;
+    /* Usamos Poppins como fuente base por defecto */
+    font-family: 'Poppins', sans-serif;
+}
+
+.login-card {
+    text-align: center;
+    width: 320px;
+}
+
+.brand-title {
+    /* Fuente Italiana para el título principal */
+    font-family: 'Italiana', serif;
+    color: #2da44e; 
+    font-weight: 400;
+    font-size: 2.5rem;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+}
+
+.logo-container img {
+    width: 80px;
+    margin-bottom: 10px;
+    
+    filter: grayscale(100%);
+}
+
+.tagline {
+   
+    font-family: 'Cedarville Cursive', cursive;
+    color: #a67c52;
+    font-size: 1.4rem;
+    margin-bottom: 30px;
+}
+
+.input-group {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.8rem;
+    color: #333;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.input-wrapper {
+    display: flex;
+    align-items: center;
+    background-color: #d9d9d9; 
+    padding: 8px;
+    border-radius: 2px;
+}
+
+.input-wrapper input {
+    font-family: 'Poppins', sans-serif;
+    border: none;
+    background: transparent;
+    margin-left: 10px;
+    width: 100%;
+    outline: none;
+}
+
+.btn-login {
+   
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    width: 100%;
+    padding: 12px;
+    background-color: #a67c52; 
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 20px;
+}
+
+.admin-link {
+    font-family: 'Poppins', sans-serif;
+    display: block;
+    margin-top: 20px;
+    color: #2da44e;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.footer-text {
+    font-family: 'Poppins', sans-serif;
+    margin-top: 40px;
+    font-size: 0.8rem;
+}
+
+.register {
+    font-weight: 600;
+    color: #00acee;
+    cursor: pointer;
+}
+
+.heart-container {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.heart-icon {
+    font-family: 'Cedarville Cursive', cursive;
+    color: #a67c52; /* El mismo color café de tu frase */
+    font-size: 2rem;
+}
+

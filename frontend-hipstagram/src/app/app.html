@@ -1,0 +1,40 @@
+<div class="login-container">
+  <div class="login-card">
+    <h1 class="brand-title">HIPSTAGRAM</h1>
+    
+    <div class="logo-container">
+      <div class="logo-container">
+  <img src="https://img.freepik.com/premium-vector/camera-icon-social-media-sign-icon-instagram-logo-camera-symbol-vector-illustration_833685-856.jpg?semt=ais_hybrid&w=740&q=80" alt="Logo">
+</div>
+
+    <p class="tagline">Comparte tu mundo</p>
+
+    <form (submit)="onLogin(); $event.preventDefault()">
+      <div class="input-group">
+        <label>Email</label>
+        <div class="input-wrapper">
+          <span class="icon">✉</span>
+          <input type="email" [ngModel]="email()" (ngModelChange)="email.set($event)" name="email">
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>Password</label>
+        <div class="input-wrapper">
+          <span class="icon">🔒</span>
+          <input type="password" [ngModel]="password()" (ngModelChange)="password.set($event)" name="password">
+        </div>
+      </div>
+      
+      <div class="heart-container">
+        <span class="heart-icon">❤</span>
+      </div>
+
+      <button type="submit" class="btn-login">Iniciar sesión</button>
+    </form>
+
+    <a href="#" class="admin-link">Ingresar como Administrador</a>
+    
+    <p class="footer-text">¿No tienes una cuenta? <span class="register">Regístrate</span></p>
+  </div>
+</div>
