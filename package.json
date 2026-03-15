@@ -1,8 +1,1 @@
-{
-"scripts": 
-  {
-  "dev": "Concurrently \"npm run Backend-Hipstagram\" \"npm run Frontend-Hipstagram\"",
-  "Backend-Hipstagram": "cd Backend-Hipstagram/auth-service && npm run dev",
-  "Frontend-Hipstagram": "cd Frontend-Hipstagram && ng serve -o"
-  }
-}
+{"scripts":{"dev":"concurrently \"npm run backend\" \"npm run frontend\"","backend":"cd backend/auth-service && npm run dev","frontend":"cd frontend && ng serve -o"},"devDependencies":{"concurrently":"^9.2.1"}}

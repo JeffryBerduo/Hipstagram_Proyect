@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { pool } = require("../db");
+const { pool } = require("../config/db");
 
 // POST /api/auth/register
 const register = async (req, res) => {
