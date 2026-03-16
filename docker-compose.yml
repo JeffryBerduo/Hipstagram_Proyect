@@ -1,0 +1,27 @@
+services:
+  db:
+    image: postgres:16
+    container_name: hipstagram_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 4659
+      POSTGRES_DB: BD_Hipstagram
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend/auth-service
+    container_name: hipstagram_backend
+    restart: always
+    ports:
+      - "4000:4000"
+    env_file:
+      - ./backend/auth-service/.env
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:

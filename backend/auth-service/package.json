@@ -9,7 +9,7 @@
     "dev": "nodemon src/index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Jefry",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
