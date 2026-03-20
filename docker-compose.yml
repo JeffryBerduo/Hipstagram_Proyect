@@ -1,27 +1,39 @@
 services:
-  db:
+  database:
     image: postgres:16
-    container_name: hipstagram_db
+    container_name: Contenedor_Database
     restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 4659
       POSTGRES_DB: BD_Hipstagram
     ports:
-      - "5433:5432"
+      - "3000:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  backend:
+  auth-service:
     build: ./backend/auth-service
-    container_name: hipstagram_backend
+    container_name: Contenedor_Auth-Service
     restart: always
     ports:
-      - "4000:4000"
+      - "3001:3001"
     env_file:
       - ./backend/auth-service/.env
     depends_on:
-      - db
+      - database
+
+  post-service:
+    build: ./backend/post-service
+    container_name: Contenedor_Post-Service
+    restart: always
+    ports:
+      - "3002:3002"
+    env_file:
+      - ./backend/post-service/.env
+    depends_on:
+      - database
+    
 
 volumes:
-  postgres_data:
+  postgres_data:  
