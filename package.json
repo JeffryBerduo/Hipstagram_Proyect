@@ -1,1 +1,0 @@
-{"scripts":{"dev":"concurrently \"npm run backend\" \"npm run frontend\"","backend":"cd backend/auth-service && npm run dev","frontend":"cd frontend && ng serve -o"},"devDependencies":{"concurrently":"^9.2.1"}}
