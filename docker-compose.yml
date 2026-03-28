@@ -45,6 +45,17 @@ services:
       - ./backend/vote-service/.env
     depends_on:
       - database
+
+  comment-service:
+    build: ./backend/comment-service
+    container_name: contenedor_comment-service
+    restart: always
+    ports:
+      - "3004:3004"
+    env_file:
+      - ./backend/comment-service/.env
+    depends_on:
+      - database
     
 
 volumes:
