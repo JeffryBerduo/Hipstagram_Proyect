@@ -14,7 +14,7 @@ services:
 
   auth-service:
     build: ./backend/auth-service
-    container_name: Contenedor_Auth-Service
+    container_name: contenedor_auth-service
     restart: always
     ports:
       - "3001:3001"
@@ -25,12 +25,24 @@ services:
 
   post-service:
     build: ./backend/post-service
-    container_name: Contenedor_Post-Service
+    container_name: contenedor_post-service
     restart: always
     ports:
       - "3002:3002"
     env_file:
       - ./backend/post-service/.env
+    depends_on:
+      - database
+
+
+  vote-service:
+    build: ./backend/vote-service
+    container_name: contenedor_vote-service
+    restart: always
+    ports:
+      - "3003:3003"
+    env_file:
+      - ./backend/vote-service/.env
     depends_on:
       - database
     
