@@ -1,33 +1,22 @@
-import { Component, signal, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { AuthService } from './auth'; 
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
-@Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './app.html',
-  styleUrl: './app.css'
+@Injectable({
+  providedIn: 'root'
 })
-export class App {
- 
-  private authService = inject(AuthService); 
+export class AuthService {
+  private http = inject(HttpClient);
   
-  email = signal('');
-  password = signal('');
+  
+  private baseUrl = 'http://localhost:4000/api/auth';
 
-  onLogin() {
-    
-    this.authService.login(this.email(), this.password()).subscribe({
-      next: (respuesta: any) => {
-        console.log('Backend dice:', respuesta);
-        alert('¡Bienvenida!');
-      },
-      error: (fallo: any) => {
-        console.error('Error de conexión:', fallo);
-        alert('No se pudo conectar: ' + (fallo.error?.message || 'Servidor apagado'));
-      }
-    });
+  // Login
+  login(correo: string, password: string) {
+    return this.http.post(`${this.baseUrl}/login`, { correo, password });
+  }
+
+  // Registro
+  register(userData: { nombre: string, correo: string, password: string }) {
+    return this.http.post(`${this.baseUrl}/register`, userData);
   }
 }
