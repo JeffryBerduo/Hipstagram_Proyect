@@ -5,16 +5,16 @@ node_modules/
 #.env
 
 # Logs
-logs/
-*.log
-npm-debug.log*
+#logs/
+#*.log
+#npm-debug.log*
 
 # Archivos del sistema
-.DS_Store
-Thumbs.db
+#.DS_Store
+#Thumbs.db
 
 # Archivos de construcción
-dist/
+#dist/
 
 #Personal
 Pasos.txt
