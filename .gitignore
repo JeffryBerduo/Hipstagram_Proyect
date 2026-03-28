@@ -1,5 +1,5 @@
 # Dependencias
-node_modules/
+#node_modules/
 
 # Variables de entorno
 #.env
@@ -16,5 +16,4 @@ node_modules/
 # Archivos de construcción
 #dist/
 
-#Personal
 Pasos.txt
