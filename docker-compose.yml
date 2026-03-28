@@ -56,6 +56,17 @@ services:
       - ./backend/comment-service/.env
     depends_on:
       - database
+
+  search-service:
+    build: ./backend/search-service
+    container_name: contenedor_search-service
+    restart: always
+    ports:
+      - "3005:3005"
+    env_file:
+      - ./backend/search-service/.env
+    depends_on:
+      - database
     
 
 volumes:
