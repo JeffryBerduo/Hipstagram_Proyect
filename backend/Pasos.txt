@@ -1,0 +1,19 @@
+--Al crear servicio nuevo:
+------------------------------
+npm init -y -----------------Esto crea el package.json básico.
+------------------------------
+
+--------------------------------------------------
+npm install express pg dotenv jsonwebtoken cors
+npm install --save-dev nodemon--------------------Instala las dependencias, Esto crea node_modules y package-lock.json.
+--------------------------------------------------
+
+-------------------------------
+mkdir src
+mkdir src\config
+mkdir src\controllers----------Crear la estructura de carpetas manualmente:
+mkdir src\middlewares
+mkdir src\routes
+-------------------------------
+
+Crear cada archivo a mano — db.js, index.js, el controller, las rutas, el middleware, el .env, el Dockerfile...
