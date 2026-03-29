@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_HUB_USER    = credentials('dockerhub-user')
-        DOCKER_HUB_PASS    = credentials('dockerhub-pass')
+        DOCKER_HUB_USER    = credentials('JefryBerduo')
+        DOCKER_HUB_PASS    = credentials('4659')
         SONAR_TOKEN        = credentials('sonar-token')
         SONAR_HOST_URL     = 'http://sonarqube:9000'
         PROJECT_NAME       = 'hipstagram'
