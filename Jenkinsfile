@@ -1,92 +1,138 @@
 pipeline {
-
-
     agent any
+
+    environment {
+        DOCKER_HUB_USER    = credentials('dockerhub-user')
+        DOCKER_HUB_PASS    = credentials('dockerhub-pass')
+        SONAR_TOKEN        = credentials('sonar-token')
+        SONAR_HOST_URL     = 'http://sonarqube:9000'
+        PROJECT_NAME       = 'hipstagram'
+    }
 
     stages {
 
-        // ── PASO 1: Descargar el código ───────────────────────────
+        // ── 1. Checkout ──────────────────────────────────────────
         stage('Checkout') {
             steps {
-                // Descarga el código desde GitHub al servidor Jenkins
-                echo 'Descargando codigo desde GitHub...'
+                echo '📥 Clonando repositorio...'
                 checkout scm
             }
         }
 
-        // ── PASO 2: Instalar dependencias ────────────────────────
-        stage('Instalar dependencias') {
+        // ── 2. Instalar dependencias ─────────────────────────────
+        stage('Install') {
             steps {
-                echo 'Instalando dependencias de cada servicio...'
-                // Es como hacer "npm install" en cada carpeta de servicio
-                sh 'cd backend/auth-service    && npm install'
-                sh 'cd backend/post-service    && npm install'
-                sh 'cd backend/vote-service    && npm install'
-                sh 'cd backend/comment-service && npm install'
-                sh 'cd backend/search-service  && npm install'
-            }
-        }
-
-        // ── PASO 3: Pruebas ──────────────────────────────────────
-        stage('Pruebas') {
-            steps {
-                echo 'Ejecutando pruebas...'
-                // --if-present significa: solo corre si existe el comando "test"
-                sh 'cd backend/auth-service    && npm test --if-present'
-                sh 'cd backend/post-service    && npm test --if-present'
-                sh 'cd backend/vote-service    && npm test --if-present'
-                sh 'cd backend/comment-service && npm test --if-present'
-                sh 'cd backend/search-service  && npm test --if-present'
-            }
-        }
-
-        // ── PASO 4: Analizar calidad del código con SonarQube ────
-        stage('SonarQube') {
-            steps {
-                echo 'Analizando calidad del codigo...'
-                // SonarQube revisa el código y detecta errores, código duplicado, etc.
+                echo '📦 Instalando dependencias de cada servicio...'
                 sh '''
-                    npx sonar-scanner \
-                        -Dsonar.projectKey=hipstagram \
-                        -Dsonar.sources=backend \
-                        -Dsonar.host.url=http://sonarqube:9000 \
-                        -Dsonar.token=${SONAR_TOKEN}
+                    cd backend/auth-service    && npm install
+                    cd ../../backend/post-service    && npm install
+                    cd ../../backend/vote-service    && npm install
+                    cd ../../backend/comment-service && npm install
+                    cd ../../backend/search-service  && npm install
                 '''
             }
         }
 
-        // ── PASO 5: Construir imágenes Docker ────────────────────
-        stage('Construir imagenes') {
+        // ── 3. Lint ──────────────────────────────────────────────
+        stage('Lint') {
             steps {
-                echo 'Construyendo imagenes Docker de cada servicio...'
-                // Es como hacer "docker build" para cada servicio
-                sh 'docker build -t hipstagram-auth    ./backend/auth-service'
-                sh 'docker build -t hipstagram-post    ./backend/post-service'
-                sh 'docker build -t hipstagram-vote    ./backend/vote-service'
-                sh 'docker build -t hipstagram-comment ./backend/comment-service'
-                sh 'docker build -t hipstagram-search  ./backend/search-service'
+                echo '🔍 Verificando estilo del código...'
+                sh '''
+                    cd backend/auth-service    && npm run lint --if-present
+                    cd ../../backend/post-service    && npm run lint --if-present
+                    cd ../../backend/vote-service    && npm run lint --if-present
+                    cd ../../backend/comment-service && npm run lint --if-present
+                    cd ../../backend/search-service  && npm run lint --if-present
+                '''
             }
         }
 
-        // ── PASO 6: Levantar los servicios ───────────────────────
-        stage('Desplegar') {
+        // ── 4. Tests ─────────────────────────────────────────────
+        stage('Test') {
             steps {
-                echo 'Levantando todos los contenedores...'
-                // Es como hacer "docker-compose up" pero automatico
+                echo '🧪 Ejecutando pruebas...'
+                sh '''
+                    cd backend/auth-service    && npm test --if-present
+                    cd ../../backend/post-service    && npm test --if-present
+                    cd ../../backend/vote-service    && npm test --if-present
+                    cd ../../backend/comment-service && npm test --if-present
+                    cd ../../backend/search-service  && npm test --if-present
+                '''
+            }
+        }
+
+        // ── 5. SonarQube ─────────────────────────────────────────
+        stage('SonarQube Analysis') {
+            steps {
+                echo '📊 Analizando calidad del código con SonarQube...'
+                sh '''
+                    npx sonar-scanner \
+                        -Dsonar.projectKey=${PROJECT_NAME} \
+                        -Dsonar.projectName=Hipstagram \
+                        -Dsonar.sources=backend \
+                        -Dsonar.host.url=${SONAR_HOST_URL} \
+                        -Dsonar.token=${SONAR_TOKEN} \
+                        -Dsonar.exclusions=**/node_modules/**,**/*.test.js
+                '''
+            }
+        }
+
+        // ── 6. Quality Gate ──────────────────────────────────────
+        stage('Quality Gate') {
+            steps {
+                echo '✅ Verificando Quality Gate de SonarQube...'
+                timeout(time: 2, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
+
+        // ── 7. Build Docker images ───────────────────────────────
+        stage('Build Docker Images') {
+            steps {
+                echo '🐳 Construyendo imágenes Docker...'
+                sh '''
+                    docker build -t ${DOCKER_HUB_USER}/hipstagram-auth:latest    ./backend/auth-service
+                    docker build -t ${DOCKER_HUB_USER}/hipstagram-post:latest    ./backend/post-service
+                    docker build -t ${DOCKER_HUB_USER}/hipstagram-vote:latest    ./backend/vote-service
+                    docker build -t ${DOCKER_HUB_USER}/hipstagram-comment:latest ./backend/comment-service
+                    docker build -t ${DOCKER_HUB_USER}/hipstagram-search:latest  ./backend/search-service
+                '''
+            }
+        }
+
+        // ── 8. Push a Docker Hub ─────────────────────────────────
+        stage('Push to Docker Hub') {
+            steps {
+                echo '⬆️ Subiendo imágenes a Docker Hub...'
+                sh '''
+                    echo ${DOCKER_HUB_PASS} | docker login -u ${DOCKER_HUB_USER} --password-stdin
+                    docker push ${DOCKER_HUB_USER}/hipstagram-auth:latest
+                    docker push ${DOCKER_HUB_USER}/hipstagram-post:latest
+                    docker push ${DOCKER_HUB_USER}/hipstagram-vote:latest
+                    docker push ${DOCKER_HUB_USER}/hipstagram-comment:latest
+                    docker push ${DOCKER_HUB_USER}/hipstagram-search:latest
+                    docker logout
+                '''
+            }
+        }
+
+        // ── 9. Deploy ────────────────────────────────────────────
+        stage('Deploy') {
+            steps {
+                echo '🚀 Desplegando servicios...'
                 sh 'docker-compose up -d --build'
             }
         }
     }
 
-    // ── Qué hacer al terminar el pipeline ────────────────────────
+    // ── Notificaciones ───────────────────────────────────────────
     post {
         success {
-            // Si todo salió bien
-            echo 'Pipeline completado exitosamente'
+            echo '✅ Pipeline completado exitosamente'
         }
         failure {
-            // Si algo falló
-            echo 'Algo fallo en el pipeline, revisar los logs'
+            echo '❌ Pipeline falló — revisar logs'
         }
     }
 }
