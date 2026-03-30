@@ -66,6 +66,9 @@ pipeline {
                     -Dsonar.projectKey=hipstagram \
                     -Dsonar.projectName=Hipstagram \
                     -Dsonar.sources=. \
+                    -Dsonar.language=js \
+                    -Dsonar.inclusions=**/*.js \
+                    -Dsonar.exclusions=**/node_modules/**,**/coverage/** \
                     -Dsonar.token=$SONAR_AUTH_TOKEN
             '''
         }
