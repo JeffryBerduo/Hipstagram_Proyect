@@ -1,4 +1,14 @@
 services:
+  
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: Contenedor_Jenkins
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./jenkins-data:/var/jenkins_home
+      - ./var/run/docker.sock:/var/run/docker.sock
+
   database:
     image: postgres:16
     container_name: Contenedor_Database

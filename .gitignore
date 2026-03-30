@@ -18,3 +18,8 @@ dist/
 
 #Personal
 pasos.txt
+
+#Datos de volumen de docker y jenkins
+var
+jenkins-data
+jenkins_home
