@@ -59,7 +59,7 @@ pipeline {
         withSonarQubeEnv('SonarQube') {
             sh '''
                 docker run --rm \
-                    --network hipstagram-net \
+                    --network hipstagram_proyect_hipstagram-net \
                     -e SONAR_HOST_URL=http://sonarqube:9000 \
                     -v $(pwd):/usr/src \
                     sonarsource/sonar-scanner-cli \
