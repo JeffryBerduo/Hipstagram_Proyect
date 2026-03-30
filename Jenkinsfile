@@ -57,20 +57,16 @@ pipeline {
         stage('SonarQube Analysis') {
     steps {
         withSonarQubeEnv('SonarQube') {
-            sh '''
-                docker run --rm \
-                    --network hipstagram_proyect_hipstagram-net \
-                    -e SONAR_HOST_URL=http://sonarqube:9000 \
-                    -v $(pwd):/usr/src \
-                    sonarsource/sonar-scanner-cli \
+            def scannerHome = tool 'SonarScanner'
+            sh """
+                ${scannerHome}/bin/sonar-scanner \
                     -Dsonar.projectKey=hipstagram \
                     -Dsonar.projectName=Hipstagram \
-                    -Dsonar.sources=. \
-                    -Dsonar.language=js \
+                    -Dsonar.sources=backend \
                     -Dsonar.inclusions=**/*.js \
                     -Dsonar.exclusions=**/node_modules/**,**/coverage/** \
-                    -Dsonar.token=$SONAR_AUTH_TOKEN
-            '''
+                    -Dsonar.token=${SONAR_AUTH_TOKEN}
+            """
         }
     }
 }
