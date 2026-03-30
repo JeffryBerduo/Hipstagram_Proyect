@@ -57,16 +57,18 @@ pipeline {
         stage('SonarQube Analysis') {
     steps {
         withSonarQubeEnv('SonarQube') {
-            def scannerHome = tool 'SonarScanner'
-            sh """
-                ${scannerHome}/bin/sonar-scanner \
-                    -Dsonar.projectKey=hipstagram \
-                    -Dsonar.projectName=Hipstagram \
-                    -Dsonar.sources=backend \
-                    -Dsonar.inclusions=**/*.js \
-                    -Dsonar.exclusions=**/node_modules/**,**/coverage/** \
-                    -Dsonar.token=${SONAR_AUTH_TOKEN}
-            """
+            script {
+                def scannerHome = tool 'SonarScanner'
+                sh """
+                    ${scannerHome}/bin/sonar-scanner \
+                        -Dsonar.projectKey=hipstagram \
+                        -Dsonar.projectName=Hipstagram \
+                        -Dsonar.sources=backend \
+                        -Dsonar.inclusions=**/*.js \
+                        -Dsonar.exclusions=**/node_modules/**,**/coverage/** \
+                        -Dsonar.token=${SONAR_AUTH_TOKEN}
+                """
+            }
         }
     }
 }
