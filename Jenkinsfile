@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent none
 
     environment {
         DOCKER_HUB_USER    = credentials('JefryBerduo')
@@ -11,58 +11,58 @@ pipeline {
 
     stages {
 
-        // ── 1. Checkout ──────────────────────────────────────────
         stage('Checkout') {
+            agent any
             steps {
                 echo '📥 Clonando repositorio...'
                 checkout scm
             }
         }
 
-        // ── 2. Instalar dependencias ─────────────────────────────
         stage('Install') {
+            agent { docker { image 'node:18-alpine' } }
             steps {
                 echo '📦 Instalando dependencias de cada servicio...'
                 sh '''
-                    cd backend/auth-service    && npm install
-                    cd ../../backend/post-service    && npm install
-                    cd ../../backend/vote-service    && npm install
-                    cd ../../backend/comment-service && npm install
-                    cd ../../backend/search-service  && npm install
+                    (cd backend/auth-service    && npm install)
+                    (cd backend/post-service    && npm install)
+                    (cd backend/vote-service    && npm install)
+                    (cd backend/comment-service && npm install)
+                    (cd backend/search-service  && npm install)
                 '''
             }
         }
 
-        // ── 3. Lint ──────────────────────────────────────────────
         stage('Lint') {
+            agent { docker { image 'node:18-alpine' } }
             steps {
                 echo '🔍 Verificando estilo del código...'
                 sh '''
-                    cd backend/auth-service    && npm run lint --if-present
-                    cd ../../backend/post-service    && npm run lint --if-present
-                    cd ../../backend/vote-service    && npm run lint --if-present
-                    cd ../../backend/comment-service && npm run lint --if-present
-                    cd ../../backend/search-service  && npm run lint --if-present
+                    (cd backend/auth-service    && npm run lint --if-present)
+                    (cd backend/post-service    && npm run lint --if-present)
+                    (cd backend/vote-service    && npm run lint --if-present)
+                    (cd backend/comment-service && npm run lint --if-present)
+                    (cd backend/search-service  && npm run lint --if-present)
                 '''
             }
         }
 
-        // ── 4. Tests ─────────────────────────────────────────────
         stage('Test') {
+            agent { docker { image 'node:18-alpine' } }
             steps {
                 echo '🧪 Ejecutando pruebas...'
                 sh '''
-                    cd backend/auth-service    && npm test --if-present
-                    cd ../../backend/post-service    && npm test --if-present
-                    cd ../../backend/vote-service    && npm test --if-present
-                    cd ../../backend/comment-service && npm test --if-present
-                    cd ../../backend/search-service  && npm test --if-present
+                    (cd backend/auth-service    && npm test --if-present)
+                    (cd backend/post-service    && npm test --if-present)
+                    (cd backend/vote-service    && npm test --if-present)
+                    (cd backend/comment-service && npm test --if-present)
+                    (cd backend/search-service  && npm test --if-present)
                 '''
             }
         }
 
-        // ── 5. SonarQube ─────────────────────────────────────────
         stage('SonarQube Analysis') {
+            agent { docker { image 'node:18-alpine' } }
             steps {
                 echo '📊 Analizando calidad del código con SonarQube...'
                 sh '''
@@ -77,8 +77,8 @@ pipeline {
             }
         }
 
-        // ── 6. Quality Gate ──────────────────────────────────────
         stage('Quality Gate') {
+            agent any
             steps {
                 echo '✅ Verificando Quality Gate de SonarQube...'
                 timeout(time: 2, unit: 'MINUTES') {
@@ -87,38 +87,38 @@ pipeline {
             }
         }
 
-        // ── 7. Build Docker images ───────────────────────────────
         stage('Build Docker Images') {
+            agent any
             steps {
                 echo '🐳 Construyendo imágenes Docker...'
                 sh '''
-                    docker build -t ${DOCKER_HUB_USER}/hipstagram-auth:latest    ./backend/auth-service
-                    docker build -t ${DOCKER_HUB_USER}/hipstagram-post:latest    ./backend/post-service
-                    docker build -t ${DOCKER_HUB_USER}/hipstagram-vote:latest    ./backend/vote-service
-                    docker build -t ${DOCKER_HUB_USER}/hipstagram-comment:latest ./backend/comment-service
-                    docker build -t ${DOCKER_HUB_USER}/hipstagram-search:latest  ./backend/search-service
+                    docker build -t $DOCKER_HUB_CREDS_USR/hipstagram-auth:latest    ./backend/auth-service
+                    docker build -t $DOCKER_HUB_CREDS_USR/hipstagram-post:latest    ./backend/post-service
+                    docker build -t $DOCKER_HUB_CREDS_USR/hipstagram-vote:latest    ./backend/vote-service
+                    docker build -t $DOCKER_HUB_CREDS_USR/hipstagram-comment:latest ./backend/comment-service
+                    docker build -t $DOCKER_HUB_CREDS_USR/hipstagram-search:latest  ./backend/search-service
                 '''
             }
         }
 
-        // ── 8. Push a Docker Hub ─────────────────────────────────
         stage('Push to Docker Hub') {
+            agent any
             steps {
                 echo '⬆️ Subiendo imágenes a Docker Hub...'
                 sh '''
-                    echo ${DOCKER_HUB_PASS} | docker login -u ${DOCKER_HUB_USER} --password-stdin
-                    docker push ${DOCKER_HUB_USER}/hipstagram-auth:latest
-                    docker push ${DOCKER_HUB_USER}/hipstagram-post:latest
-                    docker push ${DOCKER_HUB_USER}/hipstagram-vote:latest
-                    docker push ${DOCKER_HUB_USER}/hipstagram-comment:latest
-                    docker push ${DOCKER_HUB_USER}/hipstagram-search:latest
+                    echo $DOCKER_HUB_CREDS_PSW | docker login -u $DOCKER_HUB_CREDS_USR --password-stdin
+                    docker push $DOCKER_HUB_CREDS_USR/hipstagram-auth:latest
+                    docker push $DOCKER_HUB_CREDS_USR/hipstagram-post:latest
+                    docker push $DOCKER_HUB_CREDS_USR/hipstagram-vote:latest
+                    docker push $DOCKER_HUB_CREDS_USR/hipstagram-comment:latest
+                    docker push $DOCKER_HUB_CREDS_USR/hipstagram-search:latest
                     docker logout
                 '''
             }
         }
 
-        // ── 9. Deploy ────────────────────────────────────────────
         stage('Deploy') {
+            agent any
             steps {
                 echo '🚀 Desplegando servicios...'
                 sh 'docker-compose up -d --build'
@@ -126,7 +126,6 @@ pipeline {
         }
     }
 
-    // ── Notificaciones ───────────────────────────────────────────
     post {
         success {
             echo '✅ Pipeline completado exitosamente'
