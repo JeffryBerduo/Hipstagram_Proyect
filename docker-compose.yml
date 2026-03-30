@@ -2,7 +2,7 @@ services:
 
   sonarqube:
     image: sonarqube:community
-    container_name: Contenedor_SonarQube
+    container_name: SonarQube
     restart: always
     ports:
       - "9000:9000"
