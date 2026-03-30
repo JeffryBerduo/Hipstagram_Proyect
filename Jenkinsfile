@@ -17,7 +17,7 @@ pipeline {
         }
 
         stage('Install') {
-            agent { docker { image 'node:18-alpine' reuseNode true } }
+            agent { docker { image 'node:18-alpine'; reuseNode true } }
             steps {
                 sh '''
                     (cd backend/auth-service    && npm install)
@@ -30,7 +30,7 @@ pipeline {
         }
 
         stage('Lint') {
-            agent { docker { image 'node:18-alpine' reuseNode true } }
+            agent { docker { image 'node:18-alpine'; reuseNode true } }
             steps {
                 sh '''
                     (cd backend/auth-service    && npm run lint --if-present || true)
@@ -43,7 +43,7 @@ pipeline {
         }
 
         stage('Test') {
-            agent { docker { image 'node:18-alpine' reuseNode true } }
+            agent { docker { image 'node:18-alpine';git  reuseNode true } }
             steps {
                 sh '''
                     (cd backend/auth-service    && npm test --if-present || true)
