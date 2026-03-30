@@ -1,7 +1,7 @@
 services:
-  
+
   jenkins:
-    build: ./jenkins
+    build: ./Jenkins
     container_name: Contenedor_Jenkins
     user: root
     ports:
@@ -9,6 +9,11 @@ services:
     volumes:
       - ./jenkins-data:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - hipstagram-net
+    depends_on:
+      - database
+    restart: always
 
   database:
     image: postgres:16
@@ -22,6 +27,8 @@ services:
       - "3000:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - hipstagram-net
 
   auth-service:
     build: ./backend/auth-service
@@ -33,6 +40,8 @@ services:
       - ./backend/auth-service/.env
     depends_on:
       - database
+    networks:
+      - hipstagram-net
 
   post-service:
     build: ./backend/post-service
@@ -44,7 +53,8 @@ services:
       - ./backend/post-service/.env
     depends_on:
       - database
-
+    networks:
+      - hipstagram-net
 
   vote-service:
     build: ./backend/vote-service
@@ -56,6 +66,8 @@ services:
       - ./backend/vote-service/.env
     depends_on:
       - database
+    networks:
+      - hipstagram-net
 
   comment-service:
     build: ./backend/comment-service
@@ -67,6 +79,8 @@ services:
       - ./backend/comment-service/.env
     depends_on:
       - database
+    networks:
+      - hipstagram-net
 
   search-service:
     build: ./backend/search-service
@@ -78,7 +92,12 @@ services:
       - ./backend/search-service/.env
     depends_on:
       - database
-    
+    networks:
+      - hipstagram-net
+
+networks:
+  hipstagram-net:
+    driver: bridge
 
 volumes:
-  postgres_data:  
+  postgres_data:
