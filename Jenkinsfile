@@ -1,5 +1,5 @@
 pipeline {
-    agent none
+    agent any
 
     environment {
         DOCKER_USER = 'jeffryberduo'
@@ -9,7 +9,6 @@ pipeline {
     stages {
 
         stage('Checkout') {
-            agent any
             steps {
                 cleanWs()
                 sh 'git clone -b bugfix/configjenkins https://github.com/JeffryBerduo/Hipstagram_Proyect.git .'
@@ -56,7 +55,6 @@ pipeline {
         }
 
         stage('Build Docker Images') {
-            agent any
             steps {
                 sh '''
                     docker build -t $DOCKER_USER/hipstagram-auth:latest    ./backend/auth-service
@@ -69,7 +67,6 @@ pipeline {
         }
 
         stage('Push to Docker Hub') {
-            agent any
             steps {
                 sh '''
                     echo $DOCKER_HUB_PSW | docker login -u $DOCKER_USER --password-stdin
@@ -84,7 +81,6 @@ pipeline {
         }
 
         stage('Deploy') {
-            agent any
             steps {
                 sh '''
                     docker network create hipstagram-net 2>/dev/null || true
@@ -112,7 +108,6 @@ pipeline {
         }
 
         stage('Health Check') {
-            agent any
             steps {
                 sleep(time: 10, unit: 'SECONDS')
                 sh '''
