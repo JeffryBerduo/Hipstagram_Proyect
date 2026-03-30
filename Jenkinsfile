@@ -54,6 +54,24 @@ pipeline {
             }
         }
 
+        stage('SonarQube Analysis') {
+    steps {
+        withSonarQubeEnv('SonarQube') {
+            sh '''
+                docker run --rm \
+                    --network hipstagram-net \
+                    -e SONAR_HOST_URL=http://Contenedor_SonarQube:9000 \
+                    -v $(pwd):/usr/src \
+                    sonarsource/sonar-scanner-cli \
+                    -Dsonar.projectKey=hipstagram \
+                    -Dsonar.projectName=Hipstagram \
+                    -Dsonar.sources=backend \
+                    -Dsonar.token=$SONAR_AUTH_TOKEN
+            '''
+        }
+    }
+}
+
         stage('Build Docker Images') {
             steps {
                 sh '''
