@@ -65,7 +65,7 @@ pipeline {
                     sonarsource/sonar-scanner-cli \
                     -Dsonar.projectKey=hipstagram \
                     -Dsonar.projectName=Hipstagram \
-                    -Dsonar.sources=backend \
+                    -Dsonar.sources=. \
                     -Dsonar.token=$SONAR_AUTH_TOKEN
             '''
         }
