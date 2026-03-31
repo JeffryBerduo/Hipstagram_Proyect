@@ -45,11 +45,11 @@ pipeline {
             agent { docker { image 'node:18-alpine' } }
             steps {
                 sh '''
-                    (cd backend/auth-service    && npm test --if-present || true)
-                    (cd backend/post-service    && npm test --if-present || true)
-                    (cd backend/vote-service    && npm test --if-present || true)
-                    (cd backend/comment-service && npm test --if-present || true)
-                    (cd backend/search-service  && npm test --if-present || true)
+                    (cd backend/auth-service    && npm test --if-present)
+                    (cd backend/post-service    && npm test --if-present)
+                    (cd backend/vote-service    && npm test --if-present)
+                    (cd backend/comment-service && npm test --if-present)
+                    (cd backend/search-service  && npm test --if-present)
                 '''
             }
         }
