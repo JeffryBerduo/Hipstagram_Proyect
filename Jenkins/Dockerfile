@@ -1,6 +1,6 @@
 FROM jenkins/jenkins:lts
 USER root
-RUN apt-get update && apt-get install -y docker.io git
+RUN apt-get update && apt-get install -y docker.io git curl
 USER jenkins
 RUN jenkins-plugin-cli --plugins \
     git \
@@ -8,4 +8,7 @@ RUN jenkins-plugin-cli --plugins \
     docker-plugin \
     workflow-aggregator \
     credentials-binding \
-    pipeline-stage-view
+    pipeline-stage-view \
+    sonar \
+    nodejs \
+    pipeline-utility-steps
