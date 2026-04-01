@@ -1,0 +1,23 @@
+<div class="contenedor">
+  <h2>Iniciar sesión</h2>
+
+  <input
+    type="email"
+    placeholder="Email"
+    [(ngModel)]="email"
+  />
+
+  <input
+    type="password"
+    placeholder="Contraseña"
+    [(ngModel)]="contrasena"
+  />
+
+  <p class="error" *ngIf="error">{{ error }}</p>
+
+  <button (click)="iniciarSesion()" [disabled]="cargando">
+    {{ cargando ? 'Entrando...' : 'Entrar' }}
+  </button>
+
+  <p>¿No tenés cuenta? <a routerLink="/register">Registrate</a></p>
+</div>
