@@ -1,13 +1,8 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
-import { provideHttpClient } from '@angular/common/http';
-import { routes } from './app.routes';
+import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    // Esta línea le dice a Angular que use Zone.js correctamente
-    provideZoneChangeDetection({ eventCoalescing: true }), 
-    provideRouter(routes),
-    provideHttpClient()
+    provideBrowserGlobalErrorListeners(),
+    
   ]
 };

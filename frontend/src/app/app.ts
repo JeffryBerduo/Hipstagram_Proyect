@@ -1,22 +1,11 @@
-import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, signal } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
+@Component({
+  selector: 'app-root',
+  imports: [],
+  templateUrl: './app.html',
+  styleUrl: './app.css'
 })
-export class AuthService {
-  private http = inject(HttpClient);
-  
-  
-  private baseUrl = 'http://localhost:4000/api/auth';
-
-  // Login
-  login(correo: string, password: string) {
-    return this.http.post(`${this.baseUrl}/login`, { correo, password });
-  }
-
-  // Registro
-  register(userData: { nombre: string, correo: string, password: string }) {
-    return this.http.post(`${this.baseUrl}/register`, userData);
-  }
+export class App {
+  protected readonly title = signal('frontend');
 }
