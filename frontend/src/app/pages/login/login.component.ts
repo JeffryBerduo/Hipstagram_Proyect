@@ -13,11 +13,11 @@ import { AuthServicio } from '../../services/auth.service';
 })
 export class LoginComponent {
 
-  email:     string = '';
-  contrasena: string = '';
-  error:     string = '';
-  cargando:  boolean = false;
-  mostrarContrasena: boolean = false;  // ← acá
+  email:             string  = '';
+  contrasena:        string  = '';
+  error:             string  = '';
+  cargando:          boolean = false;
+  mostrarContrasena: boolean = false;
 
   constructor(
     private authServicio: AuthServicio,
@@ -39,4 +39,5 @@ export class LoginComponent {
       }
     });
   }
+
 }

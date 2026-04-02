@@ -1,100 +1,118 @@
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Lato:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600&display=swap');
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
 .container {
   width: 100%;
-  max-width: 400px;
-  padding: 16px;
+  max-width: 360px;
+  padding: 0 24px;
 }
 
-/* ─── Tarjeta principal ─── */
 .card {
   background: #ffffff;
-  border-radius: 4px;
-  padding: 44px 40px 32px;
+  border-radius: 8px;
+  padding: 48px 32px 32px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.12);
 }
 
-.card h1 {
+.logo-titulo {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 6px;
+  color: #4a7c59;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.logo-icono {
+  width: 60px;
+  height: 60px;
+  border: 2px solid #222;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.logo-icono svg {
+  width: 32px;
+  height: 32px;
+  stroke: #222;
+  fill: none;
+}
+
+.slogan {
   font-family: 'Dancing Script', cursive;
-  font-size: 52px;
-  color: #1a1a1a;
+  font-size: 22px;
+  color: #b5651d;
   margin-bottom: 32px;
-  letter-spacing: -1px;
 }
 
-/* ─── Inputs ─── */
 .input-group {
   width: 100%;
-  margin-bottom: 12px;
-  position: relative;
+  margin-bottom: 16px;
 }
 
-input {
-  width: 100%;
-  padding: 11px 14px;
-  border: 1px solid #dbdbdb;
-  border-radius: 6px;
-  background: #fafafa;
-  font-family: 'Lato', sans-serif;
-  font-size: 14px;
-  color: #262626;
-  outline: none;
-  transition: border-color 0.2s;
-}
-
-input:focus {
-  border-color: #a0a0a0;
-  background: #fff;
-}
-
-input::placeholder {
-  color: #aaa;
+.input-group label {
+  display: block;
+  font-family: 'Montserrat', sans-serif;
   font-size: 13px;
+  color: #333;
+  margin-bottom: 6px;
 }
 
-.password-group input {
-  padding-right: 40px;
+.input-con-icono {
+  display: flex;
+  align-items: center;
+  border-bottom: 1.5px solid #ccc;
+  padding-bottom: 6px;
+  gap: 8px;
 }
 
-.toggle-pw {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  font-size: 15px;
-  color: #888;
-  user-select: none;
+.input-con-icono svg {
+  width: 18px;
+  height: 18px;
+  stroke: #aaa;
+  fill: none;
+  flex-shrink: 0;
 }
 
-/* ─── Botón ─── */
+.input-con-icono input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  color: #333;
+  width: 100%;
+}
+
 .btn {
   width: 100%;
-  padding: 10px;
-  margin-top: 8px;
-  background: #3897f0;
+  padding: 14px;
+  margin-top: 24px;
+  background: #b5651d;
   border: none;
   border-radius: 8px;
   color: #fff;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.3px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s, opacity 0.2s;
+  transition: background 0.2s;
 }
 
 .btn:hover:not(:disabled) {
-  background: #1877f2;
+  background: #9a4f14;
 }
 
 .btn:disabled {
@@ -103,32 +121,25 @@ input::placeholder {
 }
 
 
-.forgot:hover {
-  color: #3897f0;
-}
-
-
-/* ─── Caja de registro ─── */
-.signup-box {
-  background: #fff;
-  border-radius: 4px;
-  padding: 18px;
+.error {
+  color: red;
+  font-size: 13px;
+  margin-top: 8px;
   text-align: center;
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
 }
 
-.signup-box p {
-  font-family: 'Lato', sans-serif;
-  font-size: 14px;
-  color: #555;
+.signup-box {
+  text-align: center;
+  margin-top: 16px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  color: #000000;
+  border-top: 1px solid #eee;
+  padding-top: 16px;
 }
 
 .signup-box a {
-  color: #3897f0;
-  font-weight: 700;
+  color: #063394;
+  font-weight: 600;
   text-decoration: none;
-}
-
-.signup-box a:hover {
-  text-decoration: underline;
 }

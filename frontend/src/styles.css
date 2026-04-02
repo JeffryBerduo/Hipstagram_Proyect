@@ -29,6 +29,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #6a3093 0%, #c0392b 50%, #f39c12 100%);
+  background: linear-gradient(135deg, #52310c 1%, #bebdbd 50%, #52310c 100%);
 }
 
