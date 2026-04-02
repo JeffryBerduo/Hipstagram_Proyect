@@ -1,1 +1,34 @@
-/* You can add global styles to this file, and also import other style files */
+.pagina {
+  min-height: 100vh;        /* ocupa toda la altura de la pantalla */
+  display: flex;            /* activa flexbox */
+  align-items: center;      /* centra verticalmente */
+  justify-content: center;  /* centra horizontalmente */
+  background-color: #fafafa;
+}
+
+.tarjeta {
+  background: white;
+  border: 1px solid #dbdbdb;
+  border-radius: 8px;
+  padding: 40px 32px;
+  width: 100%;
+  max-width: 360px;         /* limita el ancho máximo */
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #6a3093 0%, #c0392b 50%, #f39c12 100%);
+}
+

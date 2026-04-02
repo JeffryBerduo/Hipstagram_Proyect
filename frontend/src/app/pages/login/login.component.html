@@ -1,23 +1,28 @@
-<div class="contenedor">
-  <h2>Iniciar sesión</h2>
+<div class="container">
+  <div class="card">
+    <h1>Hipstagram</h1>
+    <h1></h1>
 
-  <input
-    type="email"
-    placeholder="Email"
-    [(ngModel)]="email"
-  />
 
-  <input
-    type="password"
-    placeholder="Contraseña"
-    [(ngModel)]="contrasena"
-  />
+    <div class="input-group">
+      <input type="text" placeholder="Correo" [(ngModel)]="email" />
+    </div>
 
-  <p class="error" *ngIf="error">{{ error }}</p>
+    <div class="input-group password-group">
+      <input
+        [type]="mostrarContrasena ? 'text' : 'password'"
+        placeholder="Contraseña"
+        [(ngModel)]="contrasena"
+      />
+    </div>
 
-  <button (click)="iniciarSesion()" [disabled]="cargando">
-    {{ cargando ? 'Entrando...' : 'Entrar' }}
-  </button>
+    <button class="btn" (click)="iniciarSesion()" [disabled]="cargando">
+      {{ cargando ? 'Entrando...' : 'Iniciar sesión' }}
+    </button>
 
-  <p>¿No tenés cuenta? <a routerLink="/register">Registrate</a></p>
+  </div>
+
+  <div class="signup-box">
+    <p>¿No tienes cuenta? <a routerLink="/register">Regístrate</a></p>
+  </div>
 </div>

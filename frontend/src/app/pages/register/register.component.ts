@@ -8,8 +8,10 @@ import { AuthServicio } from '../../services/auth.service';
   selector: 'app-registro',
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink],
-  templateUrl: './register.component.html'
+  templateUrl: './register.component.html',
+  styleUrl: './register.component.css'
 })
+
 export class RegistroComponent {
 
   username:   string = '';

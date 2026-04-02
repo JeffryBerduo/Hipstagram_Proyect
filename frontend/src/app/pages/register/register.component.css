@@ -1,0 +1,71 @@
+.container {
+  width: 450px;
+}
+
+.register-box {
+  background: white;
+  border: 2px solid #050505;
+  padding: 40px;
+  text-align: center;
+}
+
+.register-box h1 {
+  font-family: 'Bahnschrift SemiBold SemiCondensed', cursive;
+  font-size: 50px;
+  margin-bottom: 10px;
+}
+
+.register-box p {
+  color: #8e8e8e;
+  font-size: 16px;
+  margin-bottom: 24px;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #000000;
+  border-radius: 5px;
+  background: #fafafa;
+}
+
+.btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #1d3a4d;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #007ed6;
+}
+
+.login-box {
+  background: white;
+  border: 2px solid #000000;
+  padding: 20px;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.login-box a {
+  color: #0b0bf8;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.error {
+  color: red;
+  font-size: 13px;
+  margin-top: 8px;
+}

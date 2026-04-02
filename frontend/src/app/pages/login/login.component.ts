@@ -8,7 +8,8 @@ import { AuthServicio } from '../../services/auth.service';
   selector: 'app-login',
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink],
-  templateUrl: './login.component.html'
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.css'
 })
 export class LoginComponent {
 
@@ -16,6 +17,7 @@ export class LoginComponent {
   contrasena: string = '';
   error:     string = '';
   cargando:  boolean = false;
+  mostrarContrasena: boolean = false;  // ← acá
 
   constructor(
     private authServicio: AuthServicio,

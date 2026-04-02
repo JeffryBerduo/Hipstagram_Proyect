@@ -1,29 +1,28 @@
-<div class="contenedor">
-  <h2>Crear cuenta</h2>
+<div class="container">
+  <div class="register-box">
+    <h1>Hipstagram</h1>
+    <p>Registrate para ver fotos de tus amigos.</p>
 
-  <input
-    type="text"
-    placeholder="Username"
-    [(ngModel)]="username"
-  />
+    <div class="input-group">
+      <input type="text"     placeholder="Username"   [(ngModel)]="username" />
+    </div>
 
-  <input
-    type="email"
-    placeholder="Email"
-    [(ngModel)]="email"
-  />
+    <div class="input-group">
+      <input type="email"    placeholder="Email"      [(ngModel)]="email" />
+    </div>
 
-  <input
-    type="password"
-    placeholder="Contraseña"
-    [(ngModel)]="contrasena"
-  />
+    <div class="input-group">
+      <input type="password" placeholder="Contraseña" [(ngModel)]="contrasena" />
+    </div>
 
-  <p class="error" *ngIf="error">{{ error }}</p>
+    <p class="error" *ngIf="error">{{ error }}</p>
 
-  <button (click)="registrarse()" [disabled]="cargando">
-    {{ cargando ? 'Registrando...' : 'Registrarse' }}
-  </button>
+    <button class="btn" (click)="registrarse()" [disabled]="cargando">
+      {{ cargando ? 'Registrando...' : 'Registrarse' }}
+    </button>
+  </div>
 
-  <p>¿Ya tenés cuenta? <a routerLink="/login">Iniciá sesión</a></p>
+  <div class="login-box">
+    <p>¿Ya tenés cuenta? <a routerLink="/login">Iniciá sesión</a></p>
+  </div>
 </div>
