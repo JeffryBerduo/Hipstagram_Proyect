@@ -1,25 +1,55 @@
 <div class="container">
-  <div class="register-box">
-    <h1>Hipstagram</h1>
-    <p>Registrate para ver fotos de tus amigos.</p>
+  <div class="card">
 
-    <div class="input-group">
-      <input type="text"     placeholder="Username"   [(ngModel)]="username" />
+    <div class="encabezado">
+      <div class="titulo">Crea tu cuenta</div>
+      <svg class="icono-lapiz" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 20h9"/>
+        <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
+      </svg>
     </div>
 
     <div class="input-group">
-      <input type="email"    placeholder="Email"      [(ngModel)]="email" />
+      <label>Nombre</label>
+      <div class="input-con-icono">
+        <svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="8" r="4"/>
+          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+        </svg>
+        <input type="text" [(ngModel)]="username" />
+      </div>
     </div>
 
     <div class="input-group">
-      <input type="password" placeholder="Contraseña" [(ngModel)]="contrasena" />
+      <label>Email</label>
+      <div class="input-con-icono">
+        <svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="4" width="20" height="16" rx="2"/>
+          <path d="M2 7l10 7 10-7"/>
+        </svg>
+        <input type="email" [(ngModel)]="email" />
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label>Password</label>
+      <div class="input-con-icono">
+        <svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"/>
+          <path d="M8 11V7a4 4 0 018 0v4"/>
+        </svg>
+        <input [type]="mostrarContrasena ? 'text' : 'password'" [(ngModel)]="contrasena" />
+      </div>
     </div>
 
     <p class="error" *ngIf="error">{{ error }}</p>
 
+    <div class="slogan">Captura tus mejores momentos</div>
+
     <button class="btn" (click)="registrarse()" [disabled]="cargando">
-      {{ cargando ? 'Registrando...' : 'Registrarse' }}
+      {{ cargando ? 'Registrando...' : 'Registrarme' }}
     </button>
+
   </div>
 
   <div class="login-box">

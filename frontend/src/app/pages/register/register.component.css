@@ -1,71 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600&display=swap');
+
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
 .container {
-  width: 450px;
+  width: 100%;
+  max-width: 360px;
+  padding: 0 24px;
 }
 
-.register-box {
-  background: white;
-  border: 2px solid #050505;
-  padding: 40px;
-  text-align: center;
+.card {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 48px 32px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.register-box h1 {
-  font-family: 'Bahnschrift SemiBold SemiCondensed', cursive;
-  font-size: 50px;
-  margin-bottom: 10px;
+.encabezado {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
 }
 
-.register-box p {
-  color: #8e8e8e;
-  font-size: 16px;
-  margin-bottom: 24px;
+.titulo {
+  font-family: 'Dancing Script', cursive;
+  font-size: 28px;
+  color: #4a7c59;
+}
+
+.icono-lapiz {
+  width: 28px;
+  height: 28px;
+  stroke: #b5651d;
+  fill: none;
 }
 
 .input-group {
-  margin-bottom: 20px;
+  width: 100%;
+  margin-bottom: 16px;
 }
 
-input {
+.input-group label {
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.input-con-icono {
+  display: flex;
+  align-items: center;
+  border-bottom: 1.5px solid #ccc;
+  padding-bottom: 6px;
+  gap: 8px;
+}
+
+.input-con-icono svg {
+  width: 18px;
+  height: 18px;
+  stroke: #aaa;
+  fill: none;
+  flex-shrink: 0;
+}
+
+.input-con-icono input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  color: #333;
   width: 100%;
-  padding: 10px;
-  border: 2px solid #000000;
-  border-radius: 5px;
-  background: #fafafa;
+}
+
+.slogan {
+  font-family: 'Dancing Script', cursive;
+  font-size: 20px;
+  color: #b5651d;
+  margin: 24px 0;
+  text-align: center;
 }
 
 .btn {
   width: 100%;
-  padding: 10px;
-  background-color: #1d3a4d;
+  padding: 14px;
+  background: #b5651d;
   border: none;
-  border-radius: 10px;
-  color: white;
-  font-weight: bold;
-  margin-top: 10px;
-  cursor: pointer;
-}
-
-.btn:hover {
-  background-color: #007ed6;
-}
-
-.login-box {
-  background: white;
-  border: 2px solid #000000;
-  padding: 20px;
-  text-align: center;
-  margin-top: 10px;
+  border-radius: 8px;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
   font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
 }
 
-.login-box a {
-  color: #0b0bf8;
-  text-decoration: none;
-  font-weight: bold;
+.btn:hover:not(:disabled) {
+  background: #9a4f14;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: default;
 }
 
 .error {
   color: red;
   font-size: 13px;
   margin-top: 8px;
+  text-align: center;
+}
+
+.login-box {
+  text-align: center;
+  margin-top: 16px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  color: #000000;
+  border-top: 1px solid #eee;
+  padding-top: 16px;
+}
+
+.login-box a {
+  color: #063394;
+  font-weight: 600;
+  text-decoration: none;
 }
