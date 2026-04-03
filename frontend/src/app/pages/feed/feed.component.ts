@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { timeout } from 'rxjs/operators';
 import { PublicacionServicio } from '../../services/publicacion.service';
 import { VotoServicio } from '../../services/voto.service';
 import { ComentarioServicio } from '../../services/comentario.service';
@@ -19,10 +20,11 @@ import { Usuario } from '../../models/usuario.modelo';
 })
 export class FeedComponent implements OnInit {
 
-  publicaciones: Publicacion[] = [];
-  cargando:      boolean = false;
-  paginaActual:  number  = 1;
-  usuario:       Usuario | null = null;
+  publicaciones:  Publicacion[] = [];
+  cargando:       boolean = false;
+  errorFeed:      string  = '';
+  paginaActual:   number  = 1;
+  usuario:        Usuario | null = null;
 
   postAbierto:  number | null = null;
   comentarios:  { [postId: number]: Comentario[] } = {};
@@ -36,7 +38,8 @@ export class FeedComponent implements OnInit {
     private votoServicio:        VotoServicio,
     private comentarioServicio:  ComentarioServicio,
     private authServicio:        AuthServicio,
-    private router:              Router
+    private router:              Router,
+    private cdr:                 ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -45,15 +48,32 @@ export class FeedComponent implements OnInit {
   }
 
   cargarFeed() {
-    this.cargando = true;
-    this.publicacionServicio.obtenerFeed(this.paginaActual).subscribe({
-      next: (respuesta) => {
-        this.publicaciones = [...this.publicaciones, ...respuesta.publicaciones];
-        respuesta.publicaciones.forEach(p => this.cargarVotos(p.id));
-        this.cargando = false;
-      },
-      error: () => { this.cargando = false; }
-    });
+    this.cargando  = true;
+    this.errorFeed = '';
+
+    this.publicacionServicio.obtenerFeed(this.paginaActual)
+      .pipe(timeout(10000))
+      .subscribe({
+        next: (respuesta) => {
+          const posts = respuesta?.publicaciones ?? [];
+          this.publicaciones = [...this.publicaciones, ...posts];
+          posts.forEach(p => this.cargarVotos(p.id));
+          this.cargando = false;
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          this.cargando = false;
+          this.cdr.detectChanges();
+          if (err?.status === 401 || err?.status === 403) {
+            this.authServicio.cerrarSesion();
+            this.router.navigate(['/login']);
+          } else if (err?.name === 'TimeoutError') {
+            this.errorFeed = 'El servidor tardó demasiado. Verifica que el backend esté corriendo.';
+          } else {
+            this.errorFeed = 'No se pudo cargar el feed. Intenta de nuevo.';
+          }
+        }
+      });
   }
 
   cargarVotos(postId: number) {
@@ -122,6 +142,11 @@ export class FeedComponent implements OnInit {
   cargarMas() {
     this.paginaActual++;
     this.cargarFeed();
+  }
+
+  cerrarSesion() {
+    this.authServicio.cerrarSesion();
+    this.router.navigate(['/login']);
   }
 
   irAFeed()   { this.router.navigate(['/feed']);   }
