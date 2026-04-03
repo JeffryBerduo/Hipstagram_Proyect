@@ -1,5 +1,6 @@
 export interface Publicacion {
   id:          number;
+  username:    string;
   user_id:     number;
   description: string;
   image_url:   string;

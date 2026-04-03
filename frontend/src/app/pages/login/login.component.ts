@@ -31,7 +31,7 @@ export class LoginComponent {
     this.authServicio.login(this.email, this.contrasena).subscribe({
       next: (respuesta) => {
         this.authServicio.guardarSesion(respuesta.token, respuesta.user);
-        this.router.navigate(['/inicio']);
+        this.router.navigate(['/feed']);
       },
       error: (err) => {
         this.error    = err.error?.message || 'Error al iniciar sesión';
