@@ -2,14 +2,14 @@
 
 /* ─── VARIABLES ─── */
 :host {
-  --ig-bg:          #fafafa;
+  --ig-bg:          #00000085;
   --ig-white:       #ffffff;
-  --ig-border:      #dbdbdb;
+  --ig-border:      #aaaaaa8c;
   --ig-text:        #262626;
-  --ig-text-sec:    #8e8e8e;
+  --ig-text-sec:    #000000;
   --ig-blue:        #0095f6;
   --ig-red:         #ed4956;
-  --ig-gradient:    linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  --ig-gradient:    linear-gradient(45deg, #000000 0%, #636363 25%);
 
   display: block;
   min-height: 100vh;
@@ -25,7 +25,7 @@
   top: 0; left: 0; right: 0;
   height: 60px;
   background: var(--ig-white);
-  border-bottom: 1px solid var(--ig-border);
+  border-bottom: 5px solid #6338128c;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -48,11 +48,11 @@
 }
 
 .logo-text {
-  font-family: 'Inter', sans-serif;
-  font-size: 22px;
+  font-family: 'Dancing Script';
+  font-size: 30px;
   font-weight: 700;
-  letter-spacing: -0.5px;
-  background: var(--ig-gradient);
+  letter-spacing: 3px;
+  background: #633812;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -61,7 +61,7 @@
 .header-buscador {
   display: flex;
   align-items: center;
-  background: #efefef;
+  background: #cac9c9;
   border-radius: 10px;
   padding: 8px 14px;
   gap: 8px;
@@ -71,7 +71,7 @@
 .header-buscador svg {
   width: 16px;
   height: 16px;
-  stroke: var(--ig-text-sec);
+  stroke: #000000;
   flex-shrink: 0;
 }
 
@@ -81,7 +81,7 @@
   background: transparent;
   font-family: 'Inter', sans-serif;
   font-size: 14px;
-  color: var(--ig-text);
+  color: #000000;
   width: 100%;
 }
 
@@ -224,7 +224,7 @@
 /* Post sin imagen */
 .post-texto-card {
   padding: 28px 20px;
-  background: linear-gradient(135deg, #fdf6f0, #fef0f8);
+  background:#6338128c;
   min-height: 180px;
   display: flex;
   align-items: center;
@@ -404,7 +404,7 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: linear-gradient(45deg, #f09433, #bc1888);
+  background: #6338128c;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -484,7 +484,7 @@
   width: 28px;
   height: 28px;
   border: 3px solid #f0f0f0;
-  border-top-color: #c13584;
+  border-top-color: #000000;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }

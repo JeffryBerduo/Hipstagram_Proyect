@@ -25,9 +25,6 @@
 
 
 body {
-  min-height: 100vh;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(135deg, #52310c 1%, #bebdbd 50%, #52310c 100%);
+background-color:bisque
 }
 
