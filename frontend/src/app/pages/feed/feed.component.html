@@ -3,51 +3,49 @@
   <!-- ─── HEADER ─── -->
   <header class="header">
     <div class="header-logo">
-      <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="url(#grad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="url(#grad)" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round">
         <defs>
           <linearGradient id="grad" x1="0%" y1="100%" x2="100%" y2="0%">
-            <stop offset="0%" style="stop-color:#000000"/>
-            <stop offset="50%" style="stop-color:#000000"/>
-            <stop offset="100%" style="stop-color:#000000"/>
+            <stop offset="0%" style="stop-color:#000000" />
+            <stop offset="50%" style="stop-color:#000000" />
+            <stop offset="100%" style="stop-color:#000000" />
           </linearGradient>
         </defs>
-        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-        <circle cx="12" cy="12" r="4"/>
-        <circle cx="17.5" cy="6.5" r="1" fill="url(#grad)" stroke="none"/>
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+        <circle cx="12" cy="12" r="4" />
+        <circle cx="17.5" cy="6.5" r="1" fill="url(#grad)" stroke="none" />
       </svg>
       <span class="logo-text">Hipstagram</span>
     </div>
 
     <div class="header-buscador">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+        <circle cx="11" cy="11" r="8" />
+        <path d="M21 21l-4.35-4.35" />
       </svg>
-      <input 
-        type="text" 
-        placeholder="Buscar" 
-        [(ngModel)]="terminoBusqueda"
-        (keyup.enter)="realizarBusqueda()"
-      />
+      <input type="text" placeholder="Buscar" [(ngModel)]="terminoBusqueda" (keyup.enter)="realizarBusqueda()" />
     </div>
 
     <div class="header-acciones">
       <button class="header-btn" (click)="irACrear()" title="Nueva publicación">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="3" width="18" height="18" rx="3"/>
-          <line x1="12" y1="8" x2="12" y2="16"/>
-          <line x1="8" y1="12" x2="16" y2="12"/>
+          <rect x="3" y="3" width="18" height="18" rx="3" />
+          <line x1="12" y1="8" x2="12" y2="16" />
+          <line x1="8" y1="12" x2="16" y2="12" />
         </svg>
       </button>
-      <button class="header-btn" *ngIf="usuario?.role === 'ADMIN'" (click)="irAlAdmin()" title="Panel de administración">
+      <button class="header-btn" *ngIf="usuario?.role === 'ADMIN'" (click)="irAlAdmin()"
+        title="Panel de administración">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="1" fill="currentColor"/><circle cx="19" cy="12" r="1" fill="currentColor"/><circle cx="5" cy="12" r="1" fill="currentColor"/>
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
         </svg>
       </button>
       <button class="header-btn logout-btn" (click)="cerrarSesion()" title="Cerrar sesión">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
-          <polyline points="16 17 21 12 16 7"/>
-          <line x1="21" y1="12" x2="9" y2="12"/>
+          <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
+          <polyline points="16 17 21 12 16 7" />
+          <line x1="21" y1="12" x2="9" y2="12" />
         </svg>
       </button>
     </div>
@@ -71,13 +69,15 @@
           </div>
           <button class="post-menu-btn">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
-              <circle cx="12" cy="5" r="1" fill="currentColor"/><circle cx="12" cy="12" r="1" fill="currentColor"/><circle cx="12" cy="19" r="1" fill="currentColor"/>
+              <circle cx="12" cy="5" r="1" fill="currentColor" />
+              <circle cx="12" cy="12" r="1" fill="currentColor" />
+              <circle cx="12" cy="19" r="1" fill="currentColor" />
             </svg>
           </button>
         </div>
 
         <!-- Imagen o texto -->
-        <img *ngIf="post.image_url" [src]="post.image_url" class="post-imagen" [alt]="post.description"/>
+        <img *ngIf="post.image_url" [src]="post.image_url" class="post-imagen" [alt]="post.description" />
         <div class="post-texto-card" *ngIf="!post.image_url">
           <p>{{ post.description }}</p>
         </div>
@@ -87,18 +87,20 @@
           <div class="acciones-grupo">
             <button class="btn-icono" [class.liked]="postLiked[post.id]" (click)="toggleLike(post.id)" title="Me gusta">
               <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z"/>
+                <path
+                  d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z" />
               </svg>
             </button>
             <button class="btn-icono" (click)="verComentarios(post.id)" title="Comentarios">
               <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+                <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
               </svg>
             </button>
           </div>
-          <button class="btn-icono dislike-btn" [class.disliked]="postDisliked[post.id]" (click)="toggleDislike(post.id)" title="No me gusta">
+          <button class="btn-icono dislike-btn" [class.disliked]="postDisliked[post.id]"
+            (click)="toggleDislike(post.id)" title="No me gusta">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M10 15v4a3 3 0 003 3l4-9V2H5.72a2 2 0 00-2 1.7l-1.38 9a2 2 0 002 2.3H10z"/>
+              <path d="M10 15v4a3 3 0 003 3l4-9V2H5.72a2 2 0 00-2 1.7l-1.38 9a2 2 0 002 2.3H10z" />
             </svg>
           </button>
         </div>
@@ -144,18 +146,10 @@
         <!-- Input nuevo comentario -->
         <div class="agregar-comentario">
           <div class="mi-avatar-sm">{{ usuario?.username?.charAt(0)?.toUpperCase() }}</div>
-          <input
-            type="text"
-            class="input-comentario"
-            placeholder="Agrega un comentario..."
-            [(ngModel)]="comentarioNuevo[post.id]"
-            (keydown.enter)="agregarComentario(post.id)"
-          />
-          <button
-            class="btn-publicar"
-            [disabled]="!comentarioNuevo[post.id]"
-            (click)="agregarComentario(post.id)"
-          >Publicar</button>
+          <input type="text" class="input-comentario" placeholder="Agrega un comentario..."
+            [(ngModel)]="comentarioNuevo[post.id]" (keydown.enter)="agregarComentario(post.id)" />
+          <button class="btn-publicar" [disabled]="!comentarioNuevo[post.id]"
+            (click)="agregarComentario(post.id)">Publicar</button>
         </div>
 
       </div>
@@ -163,9 +157,9 @@
       <!-- Error feed -->
       <div class="feed-error" *ngIf="errorFeed">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"/>
-          <line x1="12" y1="8" x2="12" y2="12"/>
-          <line x1="12" y1="16" x2="12.01" y2="16"/>
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" y1="8" x2="12" y2="12" />
+          <line x1="12" y1="16" x2="12.01" y2="16" />
         </svg>
         <p>{{ errorFeed }}</p>
         <button (click)="cargarFeed()">Reintentar</button>
@@ -180,7 +174,7 @@
       <div class="load-more-wrapper">
         <button class="btn-mas" *ngIf="!cargando && !errorFeed && publicaciones.length > 0" (click)="cargarMas()">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="6 9 12 15 18 9"/>
+            <polyline points="6 9 12 15 18 9" />
           </svg>
           Cargar más
         </button>
@@ -211,28 +205,28 @@
   <nav class="navbar">
     <button class="nav-btn activo" (click)="irAFeed()" title="Inicio">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
-        <polyline points="9 22 9 12 15 12 15 22"/>
+        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+        <polyline points="9 22 9 12 15 12 15 22" />
       </svg>
     </button>
     <button class="nav-btn" (click)="irACrear()" title="Crear">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="3" y="3" width="18" height="18" rx="3"/>
-        <line x1="12" y1="8" x2="12" y2="16"/>
-        <line x1="8" y1="12" x2="16" y2="12"/>
+        <rect x="3" y="3" width="18" height="18" rx="3" />
+        <line x1="12" y1="8" x2="12" y2="16" />
+        <line x1="8" y1="12" x2="16" y2="12" />
       </svg>
     </button>
     <button class="nav-btn" (click)="irAPerfil()" title="Perfil">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
-        <circle cx="12" cy="7" r="4"/>
+        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+        <circle cx="12" cy="7" r="4" />
       </svg>
     </button>
     <button class="nav-btn logout-btn" (click)="cerrarSesion()" title="Cerrar sesión">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
-        <polyline points="16 17 21 12 16 7"/>
-        <line x1="21" y1="12" x2="9" y2="12"/>
+        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
+        <polyline points="16 17 21 12 16 7" />
+        <line x1="21" y1="12" x2="9" y2="12" />
       </svg>
     </button>
   </nav>

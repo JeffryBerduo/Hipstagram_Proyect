@@ -5,7 +5,6 @@
   flex-direction: column;
 }
 
-
 .header-admin {
   background-color: #fff;
   border-bottom: 4px solid #633812;
@@ -133,7 +132,6 @@
   stroke: white;
 }
 
-
 .tabla-palabras {
   width: 100%;
   border-collapse: collapse;
@@ -170,7 +168,6 @@
   width: auto;
 }
 
-
 .acciones {
   text-align: right;
 }
@@ -204,7 +201,9 @@
   font-size: 13px;
 }
 
-.btn-aprobar:hover { background: #3a6147; }
+.btn-aprobar:hover {
+  background: #3a6147;
+}
 
 .btn-rechazar {
   background: #c0392b;
@@ -217,4 +216,6 @@
   font-size: 13px;
 }
 
-.btn-rechazar:hover { background: #a93226; }
+.btn-rechazar:hover {
+  background: #a93226;
+}

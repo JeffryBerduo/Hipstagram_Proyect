@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -27,6 +27,7 @@ export class AdminComponent implements OnInit {
     private authServicio: AuthServicio,
     private http: HttpClient,
     private router: Router,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
@@ -110,22 +111,22 @@ export class AdminComponent implements OnInit {
   }
 
   cargarPendientes() {
-  this.cargandoPendientes = true;
-  this.http.get<any>(`${environment.postUrl}/api/posts/admin/all?status=PENDING`).subscribe({
-    next: (respuesta) => {
-      console.log('respuesta pendientes:', respuesta);
-      this.publicacionesPendientes = respuesta?.publicaciones || [];
-      console.log('publicaciones:', this.publicacionesPendientes);
-      console.log('antes de false:', this.cargandoPendientes);
-      this.cargandoPendientes = false;
-      console.log('despues de false:', this.cargandoPendientes);
-    },
-    error: (err) => {
-      console.log('error pendientes:', err);
-      this.cargandoPendientes = false;
-    },
-  });
-}
+    this.cargandoPendientes = true;
+    this.http.get<any>(`${environment.postUrl}/api/posts/admin/all?status=PENDING`).subscribe({
+      next: (respuesta) => {
+        console.log('respuesta pendientes:', respuesta);
+        this.publicacionesPendientes = respuesta?.publicaciones || [];
+        console.log('publicaciones:', this.publicacionesPendientes);
+        console.log('antes de false:', this.cargandoPendientes);
+        this.cargandoPendientes = false;
+        console.log('despues de false:', this.cargandoPendientes);
+      },
+      error: (err) => {
+        console.log('error pendientes:', err);
+        this.cargandoPendientes = false;
+      },
+    });
+  }
 
   aprobarPost(id: number) {
     this.http.patch(`${environment.postUrl}/api/posts/admin/${id}/approve`, {}).subscribe({
@@ -148,7 +149,8 @@ export class AdminComponent implements OnInit {
   }
 
   actualizarTodo() {
-  this.cargarPalabrasProhibidas();
-  this.cargarPendientes();
-}
+    this.cargarPalabrasProhibidas();
+    this.cargarPendientes();
+    setTimeout(() => this.cdr.detectChanges(), 500);
+  }
 }
