@@ -192,3 +192,29 @@
   height: 18px;
   stroke: currentColor;
 }
+
+.btn-aprobar {
+  background: #4a7c59;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.btn-aprobar:hover { background: #3a6147; }
+
+.btn-rechazar {
+  background: #c0392b;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.btn-rechazar:hover { background: #a93226; }

@@ -2,14 +2,15 @@
 
   <!-- HEADER -->
   <header class="header-admin">
-  <div class="header-contenido">
-    <h1 class="titulo-admin">Panel de Administración</h1>
-    <div class="header-acciones">
-      <button class="btn-volver" (click)="volverAlFeed()">Volver</button>
-      <button class="btn-logout" (click)="cerrarSesion()">Cerrar sesión</button>
+    <div class="header-contenido">
+      <h1 class="titulo-admin">Panel de Administración</h1>
+      <div class="header-acciones">
+        <button class="btn-agregar" (click)="actualizarTodo()">Actualizar</button>
+        <button class="btn-volver" (click)="volverAlFeed()">Volver</button>
+        <button class="btn-logout" (click)="cerrarSesion()">Cerrar sesión</button>
+      </div>
     </div>
-  </div>
-</header>
+  </header>
 
   <!-- CONTENIDO -->
   <div class="contenido-admin">
@@ -17,16 +18,7 @@
     <div class="seccion-panel">
       <div class="seccion-header">
         <h3 class="seccion-titulo">Gestión de Palabras Prohibidas</h3>
-        <div style="display:flex; gap:12px; align-items:center;">
-          <span class="contador">{{ palabrasProhibidas.length }} palabras</span>
-          <button (click)="cargarPalabrasProhibidas()" class="btn-agregar">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="23 4 23 10 17 10" />
-              <path d="M20.49 15a9 9 0 11-2.12-9.36L23 10" />
-            </svg>
-            Actualizar
-          </button>
-        </div>
+        <span class="contador">{{ palabrasProhibidas.length }} palabras</span>
       </div>
 
       <!-- FORMULARIO PARA AGREGAR PALABRA -->
@@ -72,6 +64,39 @@
         </div>
       </div>
 
+    </div>
+
+    <!-- SECCIÓN PUBLICACIONES PENDIENTES -->
+    <div class="seccion-panel">
+      <div class="seccion-header">
+        <h3 class="seccion-titulo">Publicaciones Pendientes</h3>
+        <span class="contador">{{ publicacionesPendientes.length }} pendientes</span>
+      </div>
+
+      <div *ngIf="!cargandoPendientes && publicacionesPendientes.length === 0" class="estado-vacio">
+        <p>No hay publicaciones pendientes</p>
+      </div>
+
+      <table class="tabla-palabras" *ngIf="!cargandoPendientes && publicacionesPendientes.length > 0">
+        <tbody>
+          <tr *ngFor="let post of publicacionesPendientes; let idx = index">
+            <td class="numero">{{ idx + 1 }}</td>
+            <td class="palabra">
+              <div><strong>@{{ post.username }}</strong></div>
+              <div style="font-size:13px; color:#666;">{{ post.description }}</div>
+              <div style="font-size:12px; color:#aaa;">{{ post.created_at | date:'dd/MM/yyyy HH:mm' }}</div>
+            </td>
+            <td class="acciones" style="display:flex; gap:8px;">
+              <button (click)="aprobarPost(post.id)" class="btn-aprobar">Aprobar</button>
+              <button (click)="rechazarPost(post.id)" class="btn-rechazar">Rechazar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div *ngIf="cargandoPendientes" class="estado-vacio">
+        <p>Cargando...</p>
+      </div>
     </div>
 
     <!-- SECCIÓN DE INFORMACIÓN -->
