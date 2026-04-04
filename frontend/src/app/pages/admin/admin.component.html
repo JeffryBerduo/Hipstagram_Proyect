@@ -1,0 +1,96 @@
+<div class="pagina-admin">
+
+  <!-- HEADER -->
+  <header class="header-admin">
+  <div class="header-contenido">
+    <h1 class="titulo-admin">Panel de Administración</h1>
+    <div class="header-acciones">
+      <button class="btn-volver" (click)="volverAlFeed()">Volver</button>
+      <button class="btn-logout" (click)="cerrarSesion()">Cerrar sesión</button>
+    </div>
+  </div>
+</header>
+
+  <!-- CONTENIDO -->
+  <div class="contenido-admin">
+    <!-- SECCIÓN DE PALABRAS PROHIBIDAS -->
+    <div class="seccion-panel">
+      <div class="seccion-header">
+        <h3 class="seccion-titulo">Gestión de Palabras Prohibidas</h3>
+        <div style="display:flex; gap:12px; align-items:center;">
+          <span class="contador">{{ palabrasProhibidas.length }} palabras</span>
+          <button (click)="cargarPalabrasProhibidas()" class="btn-agregar">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 4 23 10 17 10" />
+              <path d="M20.49 15a9 9 0 11-2.12-9.36L23 10" />
+            </svg>
+            Actualizar
+          </button>
+        </div>
+      </div>
+
+      <!-- FORMULARIO PARA AGREGAR PALABRA -->
+      <div class="formulario-palabra">
+        <input type="text" [(ngModel)]="nuevaPalabra" placeholder="Ingresar" (keyup.enter)="agregarPalabra()"
+          class="input-palabra" />
+        <button (click)="agregarPalabra()" class="btn-agregar">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19" />
+            <line x1="5" y1="12" x2="19" y2="12" />
+          </svg>
+          Agregar
+        </button>
+      </div>
+
+      <!-- LISTA DE PALABRAS -->
+      <div class="lista-palabras">
+        <div *ngIf="!cargando && palabrasProhibidas.length === 0" class="estado-vacio">
+          <p>No hay palabras prohibidas configuradas</p>
+        </div>
+
+        <div *ngIf="!cargando && palabrasProhibidas.length > 0" class="tabla-contenedor">
+          <table class="tabla-palabras">
+            <tbody>
+              <tr *ngFor="let p of palabrasProhibidas; let idx = index">
+                <td class="numero">{{ idx + 1 }}</td>
+                <td class="palabra">
+                  <span class="badge-palabra">{{ p.palabra }}</span>
+                </td>
+                <td class="acciones">
+                  <button (click)="eliminarPalabra(p.id)" class="btn-eliminar" title="Eliminar palabra">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"
+                      stroke-linejoin="round">
+                      <polyline points="3 6 5 6 21 6" />
+                      <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2" />
+                    </svg>
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SECCIÓN DE INFORMACIÓN -->
+    <div class="seccion-info">
+      <h3 class="seccion-titulo">Información del Sistema</h3>
+
+      <div class="grid-info">
+        <div class="info-item">
+          <span class="label">Usuario: </span>
+          <span class="valor">{{ usuario?.username }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Email: </span>
+          <span class="valor">{{ usuario?.email }}</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

@@ -7,6 +7,7 @@ import { PublicacionServicio } from '../../services/publicacion.service';
 import { VotoServicio } from '../../services/voto.service';
 import { ComentarioServicio } from '../../services/comentario.service';
 import { AuthServicio } from '../../services/auth.service';
+import { BusquedaService } from '../../services/busqueda.service';
 import { Publicacion } from '../../models/publicacion.modelo';
 import { Comentario } from '../../models/comentario.modelo';
 import { Usuario } from '../../models/usuario.modelo';
@@ -25,6 +26,7 @@ export class FeedComponent implements OnInit {
   errorFeed:      string  = '';
   paginaActual:   number  = 1;
   usuario:        Usuario | null = null;
+  terminoBusqueda: string = '';
 
   postAbierto:  number | null = null;
   comentarios:  { [postId: number]: Comentario[] } = {};
@@ -38,6 +40,7 @@ export class FeedComponent implements OnInit {
     private votoServicio:        VotoServicio,
     private comentarioServicio:  ComentarioServicio,
     private authServicio:        AuthServicio,
+    private busquedaServicio:    BusquedaService,
     private router:              Router,
     private cdr:                 ChangeDetectorRef
   ) {}
@@ -142,6 +145,24 @@ export class FeedComponent implements OnInit {
   cargarMas() {
     this.paginaActual++;
     this.cargarFeed();
+  }
+
+  realizarBusqueda() {
+    if (!this.terminoBusqueda.trim()) {
+      return;
+    }
+
+    // Navegar a la página de búsqueda pasando el término como parámetro
+    this.router.navigate(['/buscar'], {
+      queryParams: {
+        q: this.terminoBusqueda,
+        tipo: 'texto'
+      }
+    });
+  }
+
+  irAlAdmin() {
+    this.router.navigate(['/admin']);
   }
 
   cerrarSesion() {
