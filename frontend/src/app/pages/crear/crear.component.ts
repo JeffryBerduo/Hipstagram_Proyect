@@ -31,7 +31,14 @@ export class CrearComponent {
   }
 
   publicar() {
-    if (!this.descripcion.trim()) return;
+    if (!this.descripcion.trim()) {
+      this.error = 'La descripción es requerida.';
+      return;
+    }
+    if (this.descripcion.length > 128) {
+      this.error = 'La descripción no puede superar 128 caracteres.';
+      return;
+    }
     this.enviando = true;
     this.error = '';
 

@@ -27,7 +27,7 @@ export class FeedComponent implements OnInit {
   paginaActual:   number  = 1;
   usuario:        Usuario | null = null;
   terminoBusqueda: string = '';
-
+  perfilAbierto: boolean = false;
   postAbierto:  number | null = null;
   comentarios:  { [postId: number]: Comentario[] } = {};
   votos:        { [postId: number]: { likes: number, dislikes: number } } = {};
@@ -173,4 +173,8 @@ export class FeedComponent implements OnInit {
   irAFeed()   { this.router.navigate(['/feed']);   }
   irACrear()  { this.router.navigate(['/crear']);  }
   irAPerfil() { this.router.navigate(['/perfil']); }
+
+  togglePerfil() {
+  this.perfilAbierto = !this.perfilAbierto;
+}
 }

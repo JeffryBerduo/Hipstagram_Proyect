@@ -5,6 +5,9 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  background-image: url('https://c.pxhere.com/photos/09/4a/mountains_river_lake_sky_landscape_nature_tourism_environment-848203.jpg!d');
+  background-size: cover;
+  background-position: center;
 }
 
 .container {
@@ -14,7 +17,7 @@
 }
 
 .card {
-  background: #ffffff;
+  background: rgba(245, 245, 220, 0.9);
   border-radius: 8px;
   padding: 48px 32px 32px;
   display: flex;
@@ -51,8 +54,8 @@
 }
 
 .slogan {
-  font-family: 'Dancing Script', cursive;
-  font-size: 22px;
+  font-family: 'Dancing Script';
+  font-size: 30px;
   color: #b5651d;
   margin-bottom: 32px;
 }
@@ -142,4 +145,14 @@
   color: #063394;
   font-weight: 600;
   text-decoration: none;
+}
+
+.signup-box {
+  background: rgba(245, 245, 220, 0.8);
+  border-radius: 8px;
+  padding: 5px;
+  text-align: center;
+  margin-top: 12px;
+  width: 100%;
+  max-width: 400px;
 }

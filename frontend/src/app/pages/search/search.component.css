@@ -7,8 +7,8 @@
 
 /* HEADER */
 .header {
-  background-color: #fff;
-  border-bottom: 1px solid #dbdbdb;
+  background-color: #e7e7e7;
+  border-bottom: 3px solid #abaaaa;
   padding: 1rem 2rem;
   display: flex;
   align-items: center;
@@ -51,7 +51,7 @@
 
 /* BUSCADOR SECCIÓN */
 .buscador-seccion {
-  background-color: #fff;
+  background-color: #ecebeb;
   padding: 1.5rem 2rem;
   border-bottom: 1px solid #dbdbdb;
 }
@@ -88,19 +88,15 @@
 }
 
 .btn-buscar {
-  background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+  background: #363636;
   color: white;
-  border: none;
+  border: 1px solid #000000;
   border-radius: 20px;
-  padding: 0.5rem 1.5rem;
+  padding: 1rem 1rem;
   cursor: pointer;
   font-weight: 600;
-  transition: opacity 0.3s;
 }
 
-.btn-buscar:hover {
-  opacity: 0.9;
-}
 
 .filtros {
   display: flex;
@@ -108,8 +104,8 @@
 }
 
 .filtro-btn {
-  background-color: #f0f0f0;
-  border: 1px solid #dbdbdb;
+  background-color: #363636;
+  border: 1px solid #000000;
   padding: 0.5rem 1rem;
   border-radius: 20px;
   cursor: pointer;
@@ -117,14 +113,10 @@
   font-weight: 500;
 }
 
-.filtro-btn:hover {
-  background-color: #e8e8e8;
-}
-
 .filtro-btn.activo {
-  background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
+  background: #fff;
+  color: rgb(0, 0, 0);
+  border: 1px solid #000000;
 }
 
 /* CONTENIDO */
@@ -140,10 +132,6 @@
   text-align: center;
   padding: 3rem 1rem;
   color: #666;
-}
-
-.estado-busqueda.error {
-  color: #dc3545;
 }
 
 .info-resultados {
@@ -185,7 +173,7 @@
   width: 40px;
   height: 40px;
   padding: 2px;
-  background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+  background: #000000;
   border-radius: 50%;
   display: flex;
   align-items: center;

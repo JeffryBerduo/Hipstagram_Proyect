@@ -17,12 +17,10 @@
         <label class="etiqueta">Descripción</label>
         <textarea
           class="textarea"
-          [(ngModel)]="descripcion"
-          placeholder="¿Qué está pasando?"
           rows="5"
-          maxlength="500"
+          [(ngModel)]="descripcion"
         ></textarea>
-        <div class="contador-chars">{{ descripcion.length }}/500</div>
+        <div class="contador-chars" [class.excedido]="descripcion.length > 128">{{ descripcion.length }}/128</div>
       </div>
 
       <div class="campo">
@@ -31,7 +29,6 @@
           class="input"
           type="text"
           [(ngModel)]="hashtagInput"
-          placeholder="#viaje #foto #naturaleza"
         />
         <div class="hashtags-preview" *ngIf="hashtags.length > 0">
           <span class="chip" *ngFor="let h of hashtags">#{{ h }}</span>

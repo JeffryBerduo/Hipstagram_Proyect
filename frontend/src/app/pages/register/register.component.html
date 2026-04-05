@@ -12,10 +12,6 @@
     <div class="input-group">
       <label>Nombre</label>
       <div class="input-con-icono">
-        <svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="8" r="4"/>
-          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
-        </svg>
         <input type="text" [(ngModel)]="username" />
       </div>
     </div>
@@ -23,10 +19,6 @@
     <div class="input-group">
       <label>Email</label>
       <div class="input-con-icono">
-        <svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="4" width="20" height="16" rx="2"/>
-          <path d="M2 7l10 7 10-7"/>
-        </svg>
         <input type="email" [(ngModel)]="email" />
       </div>
     </div>
@@ -34,10 +26,6 @@
     <div class="input-group">
       <label>Password</label>
       <div class="input-con-icono">
-        <svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="5" y="11" width="14" height="10" rx="2"/>
-          <path d="M8 11V7a4 4 0 018 0v4"/>
-        </svg>
         <input [type]="mostrarContrasena ? 'text' : 'password'" [(ngModel)]="contrasena" />
       </div>
     </div>
@@ -53,6 +41,6 @@
   </div>
 
   <div class="login-box">
-    <p>¿Ya tenés cuenta? <a routerLink="/login">Iniciá sesión</a></p>
+    <p>¿Ya tienes cuenta? <a routerLink="/login">Iniciá sesión</a></p>
   </div>
 </div>
