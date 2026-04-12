@@ -49,11 +49,6 @@
   transition: all 0.3s;
 }
 
-.btn-volver:hover,
-.btn-logout:hover {
-  background-color: #919191;
-}
-
 .btn-volver svg,
 .btn-logout svg {
   width: 20px;
@@ -122,10 +117,6 @@
   transition: opacity 0.3s;
 }
 
-.btn-agregar:hover {
-  opacity: 0.9;
-}
-
 .btn-agregar svg {
   width: 20px;
   height: 20px;
@@ -152,10 +143,6 @@
 .tabla-palabras td {
   padding: 1rem;
   border-bottom: 1px solid #e0e0e0;
-}
-
-.tabla-palabras tbody tr:hover {
-  background-color: #f9f9f9;
 }
 
 .numero {
@@ -201,9 +188,6 @@
   font-size: 13px;
 }
 
-.btn-aprobar:hover {
-  background: #3a6147;
-}
 
 .btn-rechazar {
   background: #c0392b;
@@ -216,6 +200,3 @@
   font-size: 13px;
 }
 
-.btn-rechazar:hover {
-  background: #a93226;
-}

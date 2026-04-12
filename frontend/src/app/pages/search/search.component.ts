@@ -66,7 +66,7 @@ export class SearchComponent implements OnInit {
 
     busqueda.subscribe({
       next: (respuesta) => {
-        this.resultados = respuesta?.publicaciones || [];
+        this.resultados = respuesta?.resultados || [];
         this.cargando = false;
 
         // Cargar votos para cada resultado

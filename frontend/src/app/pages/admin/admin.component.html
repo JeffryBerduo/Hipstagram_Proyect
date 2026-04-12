@@ -44,7 +44,6 @@
           <table class="tabla-palabras">
             <tbody>
               <tr *ngFor="let p of palabrasProhibidas; let idx = index">
-                <td class="numero">{{ idx + 1 }}</td>
                 <td class="palabra">
                   <span class="badge-palabra">{{ p.palabra }}</span>
                 </td>
@@ -80,7 +79,6 @@
       <table class="tabla-palabras" *ngIf="!cargandoPendientes && publicacionesPendientes.length > 0">
         <tbody>
           <tr *ngFor="let post of publicacionesPendientes; let idx = index">
-            <td class="numero">{{ idx + 1 }}</td>
             <td class="palabra">
               <div><strong>@{{ post.username }}</strong></div>
               <div style="font-size:13px; color:#666;">{{ post.description }}</div>

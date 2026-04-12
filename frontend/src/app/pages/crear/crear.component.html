@@ -30,9 +30,6 @@
           type="text"
           [(ngModel)]="hashtagInput"
         />
-        <div class="hashtags-preview" *ngIf="hashtags.length > 0">
-          <span class="chip" *ngFor="let h of hashtags">#{{ h }}</span>
-        </div>
       </div>
 
       <p class="error" *ngIf="error">{{ error }}</p>

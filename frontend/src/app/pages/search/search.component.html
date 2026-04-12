@@ -9,7 +9,7 @@
       </svg>
     </button>
 
-    <h1 class="titulo-busqueda">Resultados de búsqueda</h1>
+    <h1 class="titulo-busqueda">Resultados</h1>
   </header>
 
   <!-- BARRA DE BÚSQUEDA Y FILTROS -->
@@ -19,7 +19,7 @@
         <circle cx="11" cy="11" r="8" />
         <path d="M21 21l-4.35-4.35" />
       </svg>
-      <input type="text" [(ngModel)]="termino" placeholder="Busca publicaciones, hashtags o usuarios..."
+      <input type="text" [(ngModel)]="termino" placeholder=""
         (keyup.enter)="realizarBusqueda()" class="input-busqueda" />
       <button (click)="realizarBusqueda()" class="btn-buscar">Buscar</button>
     </div>
@@ -41,7 +41,6 @@
   <div class="contenido-busqueda">
     <!-- RESULTADOS -->
     <div *ngIf="!cargando && resultados.length > 0" class="resultados">
-      <p class="info-resultados">Se encontraron {{ resultados.length }} resultado(s)</p>
 
       <div class="post-card" *ngFor="let post of resultados">
 
@@ -61,14 +60,6 @@
         <div class="post-texto-card" *ngIf="!post.image_url">
           <p>{{ post.description }}</p>
         </div>
-
-        <!-- Tags -->
-        <div class="post-tags" *ngIf="post.hashtags">
-          <span *ngFor="let tag of post.hashtags.split(',')" class="tag">
-            #{{ tag.trim() }}
-          </span>
-        </div>
-
         <!-- Acciones -->
         <div class="post-acciones">
           <div class="acciones-grupo">

@@ -125,12 +125,6 @@
 .input::placeholder { color: #000000; }
 
 /* ─── HASHTAG CHIPS ─── */
-.hashtags-preview {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 10px;
-}
 
 .chip {
   background: #eff6ff;
