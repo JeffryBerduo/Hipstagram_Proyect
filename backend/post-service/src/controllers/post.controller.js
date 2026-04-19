@@ -21,7 +21,7 @@ const getFeed = async (req, res) => {
       LEFT JOIN publicaciones_hashtags ph ON ph.post_id = p.id
       LEFT JOIN hashtags               h  ON h.id = ph.hashtag_id
       WHERE p.status = 'APPROVED'
-      ND u.is_active = true
+      AND u.is_active = true
       GROUP BY p.id, u.id
       ORDER BY
       (ARRAY_AGG(DISTINCT h.name) FILTER (WHERE h.name IS NOT NULL) IS NOT NULL) DESC,

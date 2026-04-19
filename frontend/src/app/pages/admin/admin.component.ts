@@ -22,6 +22,13 @@ export class AdminComponent implements OnInit {
   tipoMensaje: 'success' | 'error' | '' = '';
   publicacionesPendientes: any[] = [];
   cargandoPendientes: boolean = false;
+  usuarios: any[] = [];
+  cargandoUsuarios: boolean = false;
+  auditoria: any[] = [];
+  cargandoAuditoria: boolean = false;
+  filtroFechaInicio: string = '';
+  filtroFechaFin: string = '';
+  filtroAccion: string = '';
 
   constructor(
     private authServicio: AuthServicio,
@@ -37,9 +44,10 @@ export class AdminComponent implements OnInit {
       this.router.navigate(['/feed']);
       return;
     }
-
+    this.cargarUsuarios();
     this.cargarPalabrasProhibidas();
     this.cargarPendientes();
+    this.cargarAuditoria();
   }
 
   cargarPalabrasProhibidas() {
@@ -149,8 +157,49 @@ export class AdminComponent implements OnInit {
   }
 
   actualizarTodo() {
-    this.cargarPalabrasProhibidas();
-    this.cargarPendientes();
-    setTimeout(() => this.cdr.detectChanges(), 500);
+  this.cargarPalabrasProhibidas();
+  this.cargarPendientes();
+  this.cargarUsuarios();
+  this.cargarAuditoria();
+  setTimeout(() => this.cdr.detectChanges(), 500);
   }
+
+  cargarUsuarios() {
+  this.cargandoUsuarios = true;
+  this.http.get<any>(`${environment.authUrl}/api/auth/admin/usuarios`).subscribe({
+    next: (respuesta) => {
+      this.usuarios = respuesta?.usuarios || [];
+      this.cargandoUsuarios = false;
+      this.cdr.detectChanges();
+    },
+    error: () => { this.cargandoUsuarios = false; }
+  });
+}
+
+toggleUsuario(id: number) {
+  this.http.patch(`${environment.authUrl}/api/auth/admin/usuarios/${id}/toggle`, {}).subscribe({
+    next: (respuesta: any) => {
+      this.mostrarMensaje(respuesta.message, 'success');
+      this.cargarUsuarios();
+    },
+    error: () => this.mostrarMensaje('Error al modificar usuario', 'error')
+  });
+}
+
+cargarAuditoria() {
+  this.cargandoAuditoria = true;
+  let params = '';
+  if (this.filtroFechaInicio) params += `&fecha_inicio=${this.filtroFechaInicio}`;
+  if (this.filtroFechaFin)    params += `&fecha_fin=${this.filtroFechaFin}`;
+  if (this.filtroAccion)      params += `&accion=${this.filtroAccion}`;
+
+  this.http.get<any>(`${environment.authUrl}/api/auth/admin/auditoria?${params}`).subscribe({
+    next: (respuesta) => {
+      this.auditoria = respuesta?.registros || [];
+      this.cargandoAuditoria = false;
+      this.cdr.detectChanges();
+    },
+    error: () => { this.cargandoAuditoria = false; }
+  });
+}
 }

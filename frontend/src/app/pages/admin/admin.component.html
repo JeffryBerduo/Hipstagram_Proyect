@@ -37,7 +37,7 @@
       <!-- LISTA DE PALABRAS -->
       <div class="lista-palabras">
         <div *ngIf="!cargando && palabrasProhibidas.length === 0" class="estado-vacio">
-          <p>No hay palabras prohibidas configuradas</p>
+          <p>No hay palabras prohibidas</p>
         </div>
 
         <div *ngIf="!cargando && palabrasProhibidas.length > 0" class="tabla-contenedor">
@@ -63,6 +63,44 @@
         </div>
       </div>
 
+    </div>
+
+    <!-- SECCIÓN GESTIÓN DE USUARIOS -->
+    <div class="seccion-panel">
+      <div class="seccion-header">
+        <h3 class="seccion-titulo">Gestión de Usuarios</h3>
+        <span class="contador">{{ usuarios.length }} usuarios</span>
+      </div>
+
+      <div *ngIf="cargandoUsuarios" class="estado-vacio">
+        <p>Cargando...</p>
+      </div>
+
+      <div *ngIf="!cargandoUsuarios && usuarios.length === 0" class="estado-vacio">
+        <p>No hay usuarios</p>
+      </div>
+
+      <table class="tabla-palabras" *ngIf="!cargandoUsuarios && usuarios.length > 0">
+        <tbody>
+          <tr *ngFor="let u of usuarios; let idx = index">
+            <td class="palabra">
+              <div><strong>{{ u.username }}</strong></div>
+              <div style="font-size:13px; color:#666;">{{ u.email }}</div>
+            </td>
+            <td style="font-size:13px;">
+              <span [style.color]="u.role === 'ADMIN' ? '#4a7c59' : '#888'">
+                {{ u.role }}
+              </span>
+            </td>
+            <td class="acciones">
+              <button (click)="toggleUsuario(u.id)" [class]="u.is_active ? 'btn-rechazar' : 'btn-aprobar'"
+                [disabled]="u.role === 'ADMIN'">
+                {{ u.is_active ? 'Desactivar' : 'Activar' }}
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
     <!-- SECCIÓN PUBLICACIONES PENDIENTES -->
@@ -91,6 +129,51 @@
           </tr>
         </tbody>
       </table>
+    </div>
+
+    <div class="seccion-panel">
+      <div class="seccion-header">
+        <h3 class="seccion-titulo">Log de Auditoría</h3>
+        <span class="contador">Últimos {{ auditoria.length }} registros</span>
+      </div>
+
+      <div *ngIf="cargandoAuditoria" class="estado-vacio">
+        <p>Cargando...</p>
+      </div>
+
+      <div *ngIf="!cargandoAuditoria && auditoria.length === 0" class="estado-vacio">
+        <p>No hay registros de auditoría</p>
+      </div>
+
+      <div class="tabla-auditoria-contenedor">
+        <table class="tabla-palabras" *ngIf="!cargandoAuditoria && auditoria.length > 0">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Usuario</th>
+              <th>Rol</th>
+              <th>Acción</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let r of auditoria">
+              <td style="font-size:12px; color:#000000; white-space:nowrap">
+                {{ r.timestamp | date:'dd/MM/yyyy HH:mm' }}
+              </td>
+              <td style="font-size:13px;"><strong>{{ r.username || 'Sistema' }}</strong></td>
+              <td style="font-size:13px;">{{ r.rol }}</td>
+              <td style="font-size:13px;"><span class="badge-palabra">{{ r.accion }}</span></td>
+              <td>
+                <span [style.color]="r.resultado === 'SUCCESS' ? '#4a7c59' : '#c0392b'"
+                  style="font-size:13px; font-weight:600;">
+                  {{ r.resultado }}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <!-- SECCIÓN DE INFORMACIÓN -->
