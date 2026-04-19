@@ -7,29 +7,20 @@ const register = async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
-    // 1. Validar datos básicos
     if (!email || !password || !username) {
-      return res
-        .status(400)
-        .json({ message: "Username, email y password son requeridos" });
+      return res.status(400).json({ message: "Username, email y password son requeridos" });
     }
 
-    // 2. Verificar si ya existe un usuario con ese email
     const existingUser = await pool.query(
-      "SELECT id FROM usuarios WHERE email = $1",
-      [email]
+      "SELECT id FROM usuarios WHERE email = $1", [email]
     );
 
     if (existingUser.rows.length > 0) {
-      return res
-        .status(409)
-        .json({ message: "El email ya está registrado" });
+      return res.status(409).json({ message: "El email ya está registrado" });
     }
 
-    // 3. Hashear la contraseña
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // 4. Insertar usuario en la BD
     const result = await pool.query(
       `INSERT INTO usuarios (username, email, password_hash)
        VALUES ($1, $2, $3)
@@ -39,18 +30,19 @@ const register = async (req, res) => {
 
     const user = result.rows[0];
 
-    // 5. Crear token JWT
     const token = jwt.sign(
       { id: user.id, email: user.email, role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
 
-    res.status(201).json({
-      message: "Usuario registrado correctamente",
-      user,
-      token,
-    });
+    await pool.query(
+      `INSERT INTO auditoria (user_id, rol, accion, entidad_tipo, entidad_id, resultado, ip)
+       VALUES ($1, 'USER', 'REGISTER', 'USUARIO', $2, 'SUCCESS', $3)`,
+      [user.id, user.id, req.ip]
+    );
+
+    res.status(201).json({ message: "Usuario registrado correctamente", user, token });
   } catch (error) {
     console.error("Error en register:", error);
     res.status(500).json({ message: "Error en el servidor" });
@@ -63,50 +55,63 @@ const login = async (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      return res
-        .status(400)
-        .json({ message: "Email y password son requeridos" });
+      return res.status(400).json({ message: "Email y password son requeridos" });
     }
 
-    // 1. Buscar usuario por email
     const result = await pool.query(
       `SELECT id, username, email, password_hash, role, is_active, fecha_registro
-       FROM usuarios
-       WHERE email = $1`,
+       FROM usuarios WHERE email = $1`,
       [email]
     );
 
+    // Usuario no existe
     if (result.rows.length === 0) {
+      await pool.query(
+        `INSERT INTO auditoria (user_id, rol, accion, entidad_tipo, resultado, ip)
+         VALUES (NULL, 'USER', 'LOGIN', 'USUARIO', 'FAILED', $1)`,
+        [req.ip]
+      );
       return res.status(401).json({ message: "Credenciales inválidas" });
     }
 
     const user = result.rows[0];
 
-    // 2. Verificar si el usuario está activo
     if (!user.is_active) {
       return res.status(403).json({ message: "Usuario bloqueado" });
     }
 
-    // 3. Comparar contraseña
     const isMatch = await bcrypt.compare(password, user.password_hash);
+
+    // Contraseña incorrecta
     if (!isMatch) {
+      await pool.query(
+        `INSERT INTO auditoria (user_id, rol, accion, entidad_tipo, entidad_id, resultado, ip)
+         VALUES ($1, 'USER', 'LOGIN', 'USUARIO', $2, 'FAILED', $3)`,
+        [user.id, user.id, req.ip]
+      );
       return res.status(401).json({ message: "Credenciales inválidas" });
     }
 
-    // 4. Generar token
     const token = jwt.sign(
       { id: user.id, email: user.email, role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
 
+    // Login exitoso
+    await pool.query(
+      `INSERT INTO auditoria (user_id, rol, accion, entidad_tipo, entidad_id, resultado, ip)
+       VALUES ($1, $2, 'LOGIN', 'USUARIO', $3, 'SUCCESS', $4)`,
+      [user.id, user.role, user.id, req.ip]
+    );
+
     res.json({
       message: "Login exitoso",
       user: {
-        id:             user.id,
-        username:       user.username,
-        email:          user.email,
-        role:           user.role,
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        role: user.role,
         fecha_registro: user.fecha_registro,
       },
       token,

@@ -90,32 +90,30 @@ const createPost = async (req, res) => {
     return res.status(400).json({ message: "hashtags debe ser un arreglo" });
   }
 
-const image_url = null;
+  const image_url = null;
 
-// Verificar palabras prohibidas
-const palabras = await pool.query(
-  'SELECT palabra FROM palabras_prohibidas'
-);
-const lista = palabras.rows.map(p => p.palabra.toLowerCase());
-const textoCompleto = (description + ' ' + hashtags.join(' ')).toLowerCase();
-const palabraEncontrada = lista.find(p => textoCompleto.includes(p));
+  // Verificar palabras prohibidas
+  const palabras = await pool.query("SELECT palabra FROM palabras_prohibidas");
+  const lista = palabras.rows.map((p) => p.palabra.toLowerCase());
+  const textoCompleto = (description + " " + hashtags.join(" ")).toLowerCase();
+  const palabraEncontrada = lista.find((p) => textoCompleto.includes(p));
 
-if (palabraEncontrada) {
-  return res.status(400).json({
-    message: `La publicación contiene una palabra no permitida: "${palabraEncontrada}"`
-  });
-}
+  if (palabraEncontrada) {
+    return res.status(400).json({
+      message: `La publicación contiene una palabra no permitida: "${palabraEncontrada}"`,
+    });
+  }
 
-const client = await pool.connect();
-try {
-  await client.query("BEGIN");
+  const client = await pool.connect();
+  try {
+    await client.query("BEGIN");
 
-  const postResult = await client.query(
-    `INSERT INTO publicaciones (user_id, description, image_url, status)
+    const postResult = await client.query(
+      `INSERT INTO publicaciones (user_id, description, image_url, status)
     VALUES ($1, $2, $3, 'PENDING')
      RETURNING *`,
-    [user_id, description.trim(), image_url]
-  );
+      [user_id, description.trim(), image_url],
+    );
     const post = postResult.rows[0];
 
     await client.query("SAVEPOINT sp_hashtags");
@@ -143,6 +141,12 @@ try {
     }
 
     await client.query("COMMIT");
+
+    await pool.query(
+      `INSERT INTO auditoria (user_id, rol, accion, entidad_tipo, entidad_id, resultado)
+   VALUES ($1, 'USER', 'CREATE_POST', 'PUBLICACION', $2, 'SUCCESS')`,
+      [user_id, post.id],
+    );
 
     res.status(201).json({
       message: "Publicación creada, pendiente de moderación",
@@ -184,6 +188,12 @@ const deletePost = async (req, res) => {
     await client.query(
       `DELETE FROM publicaciones           WHERE id      = $1`,
       [id],
+    );
+
+    await client.query(
+      `INSERT INTO auditoria (user_id, rol, accion, entidad_tipo, entidad_id, resultado)
+   VALUES ($1, 'USER', 'DELETE_POST', 'PUBLICACION', $2, 'SUCCESS')`,
+      [user_id, id],
     );
 
     await client.query("COMMIT");
@@ -241,6 +251,11 @@ const approvePost = async (req, res) => {
     if (result.rows.length === 0) {
       return res.status(404).json({ message: "Publicación no encontrada" });
     }
+    await pool.query(
+      `INSERT INTO auditoria (user_id, rol, accion, entidad_tipo, entidad_id, resultado)
+   VALUES ($1, 'ADMIN', 'APPROVE_POST', 'PUBLICACION', $2, 'SUCCESS')`,
+      [req.user.id, id],
+    );
     res.json({ message: "Publicación aprobada", publicacion: result.rows[0] });
   } catch (err) {
     console.error("approvePost error:", err);
@@ -259,6 +274,11 @@ const rejectPost = async (req, res) => {
     if (result.rows.length === 0) {
       return res.status(404).json({ message: "Publicación no encontrada" });
     }
+    await pool.query(
+      `INSERT INTO auditoria (user_id, rol, accion, entidad_tipo, entidad_id, resultado)
+   VALUES ($1, 'ADMIN', 'REJECT_POST', 'PUBLICACION', $2, 'SUCCESS')`,
+      [req.user.id, id],
+    );
     res.json({ message: "Publicación rechazada", publicacion: result.rows[0] });
   } catch (err) {
     console.error("rejectPost error:", err);
@@ -287,6 +307,12 @@ const adminDeletePost = async (req, res) => {
       await client.query("ROLLBACK");
       return res.status(404).json({ message: "Publicación no encontrada" });
     }
+
+    await client.query(
+      `INSERT INTO auditoria (user_id, rol, accion, entidad_tipo, entidad_id, resultado)
+      VALUES ($1, 'ADMIN', 'ADMIN_DELETE_POST', 'PUBLICACION', $2, 'SUCCESS')`,
+      [req.user.id, id],
+    );
 
     await client.query("COMMIT");
     res.json({ message: "Publicación eliminada por administrador" });

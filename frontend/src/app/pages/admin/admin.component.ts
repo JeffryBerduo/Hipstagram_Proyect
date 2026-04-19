@@ -156,6 +156,18 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  eliminarPostAdmin(id: number) {
+  if (!confirm('¿Deseas eliminar esta publicación?')) return;
+
+  this.http.delete<any>(`${environment.postUrl}/api/posts/admin/${id}`).subscribe({
+    next: () => {
+      this.mostrarMensaje('Publicación eliminada', 'success');
+      this.cargarPendientes();
+    },
+    error: () => this.mostrarMensaje('Error al eliminar', 'error')
+  });
+}
+
   actualizarTodo() {
   this.cargarPalabrasProhibidas();
   this.cargarPendientes();
