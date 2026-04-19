@@ -1,26 +1,25 @@
-import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BusquedaService } from '../../services/busqueda.service';
 import { VotoServicio } from '../../services/voto.service';
 import { AuthServicio } from '../../services/auth.service';
 import { FormsModule } from '@angular/forms';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-search',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './search.component.html',
-  styleUrl: './search.component.css'
+  styleUrl: './search.component.css',
 })
 export class SearchComponent implements OnInit {
-
   termino: string = '';
   resultados: any[] = [];
   cargando: boolean = false;
   error: string = '';
   tipo: string = 'texto'; // tipo, hashtag o usuario
-  votos: { [postId: number]: { likes: number, dislikes: number } } = {};
+  votos: { [postId: number]: { likes: number; dislikes: number } } = {};
   postLiked: { [postId: number]: boolean } = {};
   postDisliked: { [postId: number]: boolean } = {};
 
@@ -29,15 +28,16 @@ export class SearchComponent implements OnInit {
     private votoServicio: VotoServicio,
     private authServicio: AuthServicio,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
     // Obtener parámetro de búsqueda de la URL
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe((params) => {
       this.termino = params['q'] || '';
       this.tipo = params['tipo'] || 'texto';
-      
+
       if (this.termino.trim()) {
         this.realizarBusqueda();
       }
@@ -70,9 +70,10 @@ export class SearchComponent implements OnInit {
         this.cargando = false;
 
         // Cargar votos para cada resultado
-        this.resultados.forEach(post => {
+        this.resultados.forEach((post) => {
           this.cargarVotos(post.id);
         });
+          this.cdr.detectChanges();
       },
       error: (err) => {
         this.cargando = false;
@@ -82,7 +83,7 @@ export class SearchComponent implements OnInit {
         } else {
           this.error = 'No se encontraron resultados o hubo un error en la búsqueda';
         }
-      }
+      },
     });
   }
 
@@ -91,9 +92,9 @@ export class SearchComponent implements OnInit {
       next: (v) => {
         this.votos[postId] = {
           likes: v.likes,
-          dislikes: v.dislikes
+          dislikes: v.dislikes,
         };
-      }
+      },
     });
   }
 
@@ -104,7 +105,7 @@ export class SearchComponent implements OnInit {
       this.postLiked[postId] = true;
       this.postDisliked[postId] = false;
       this.votoServicio.votar(postId, 1).subscribe({
-        next: () => this.cargarVotos(postId)
+        next: () => this.cargarVotos(postId),
       });
     }
   }
@@ -116,7 +117,7 @@ export class SearchComponent implements OnInit {
       this.postDisliked[postId] = true;
       this.postLiked[postId] = false;
       this.votoServicio.votar(postId, -1).subscribe({
-        next: () => this.cargarVotos(postId)
+        next: () => this.cargarVotos(postId),
       });
     }
   }
