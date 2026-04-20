@@ -3,14 +3,13 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_USER    = 'jeffryberduo'
-        DOCKER_HUB     = credentials('jeffryberduo')        // credencial de Docker Hub
-        SONAR_TOKEN    = credentials('sonarqube-token')     // credencial de SonarQube
+        DOCKER_USER = 'jeffryberduo'
+        DOCKER_HUB  = credentials('jeffryberduo')
+        SONAR_TOKEN = credentials('sonarqube-token')
     }
 
     stages {
 
-        // ── STAGE 1: Checkout ─────────────────────────────────────────────
         stage('Checkout') {
             steps {
                 cleanWs()
@@ -18,10 +17,8 @@ pipeline {
             }
         }
 
-        // ── STAGE 2: Install ──────────────────────────────────────────────
-        // Corre en el agente principal (no en contenedor aparte)
-        // así los node_modules persisten para los siguientes stages
         stage('Install') {
+            agent { docker { image 'node:18-alpine' } }
             steps {
                 sh '''
                     (cd backend/auth-service    && npm install)
@@ -33,8 +30,8 @@ pipeline {
             }
         }
 
-        // ── STAGE 3: Lint ─────────────────────────────────────────────────
         stage('Lint') {
+            agent { docker { image 'node:18-alpine' } }
             steps {
                 sh '''
                     (cd backend/auth-service    && npm run lint --if-present || true)
@@ -46,8 +43,8 @@ pipeline {
             }
         }
 
-        // ── STAGE 4: Test ─────────────────────────────────────────────────
         stage('Test') {
+            agent { docker { image 'node:18-alpine' } }
             steps {
                 sh '''
                     (cd backend/auth-service    && npm test --if-present || true)
@@ -59,7 +56,6 @@ pipeline {
             }
         }
 
-        // ── STAGE 5: SonarQube ────────────────────────────────────────────
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
@@ -79,9 +75,6 @@ pipeline {
             }
         }
 
-        // ── STAGE 6: Quality Gate ─────────────────────────────────────────
-        // Espera la respuesta de SonarQube (máx 5 min)
-        // Si el código no pasa la calidad mínima, el pipeline se detiene aquí
         stage('Quality Gate') {
             steps {
                 timeout(time: 5, unit: 'MINUTES') {
@@ -90,7 +83,6 @@ pipeline {
             }
         }
 
-        // ── STAGE 7: Build Docker Images ──────────────────────────────────
         stage('Build Docker Images') {
             steps {
                 sh '''
@@ -103,9 +95,6 @@ pipeline {
             }
         }
 
-        // ── STAGE 8: Push a Docker Hub ────────────────────────────────────
-        // DOCKER_HUB_USR y DOCKER_HUB_PSW son generadas automáticamente
-        // por Jenkins cuando usas credentials('nombre') con usuario/contraseña
         stage('Push to Docker Hub') {
             steps {
                 sh '''
@@ -120,28 +109,17 @@ pipeline {
             }
         }
 
-        // ── STAGE 9: Deploy ───────────────────────────────────────────────
         stage('Deploy') {
             steps {
                 sh '''
-                    # Crea la red si no existe (el || true evita error si ya existe)
                     docker network create hipstagram-net 2>/dev/null || true
 
-                    # Función para detener el contenedor viejo y levantar el nuevo
                     deploy() {
                         NAME=$1
                         PORT=$2
-
-                        echo "Desplegando ${NAME}-service en puerto ${PORT}..."
-
-                        # Para el contenedor anterior si existe
                         docker stop  contenedor_${NAME}-service 2>/dev/null || true
                         docker rm    contenedor_${NAME}-service 2>/dev/null || true
-
-                        # Descarga la imagen más reciente que acabamos de subir
                         docker pull $DOCKER_USER/hipstagram-${NAME}:latest
-
-                        # Levanta el nuevo contenedor
                         docker run -d \
                             --name contenedor_${NAME}-service \
                             --network hipstagram-net \
@@ -160,10 +138,8 @@ pipeline {
             }
         }
 
-        // ── STAGE 10: Health Check ────────────────────────────────────────
         stage('Health Check') {
             steps {
-                // Espera 15s a que los contenedores terminen de iniciar
                 sleep(time: 15, unit: 'SECONDS')
                 sh '''
                     curl -sf http://localhost:3001/health || echo "WARN: auth-service no responde"
@@ -178,14 +154,13 @@ pipeline {
 
     post {
         success {
-            echo '✅ Pipeline completado exitosamente.'
+            echo 'Pipeline completado exitosamente.'
         }
         failure {
-            echo '❌ Pipeline falló. Revisando contenedores...'
-            sh 'docker ps -a | grep hipstagram || true'
+            echo 'Pipeline falló — revisar logs.'
         }
         always {
-            sh 'docker logout || true'
+            echo 'Pipeline finalizado.'
         }
     }
 }
