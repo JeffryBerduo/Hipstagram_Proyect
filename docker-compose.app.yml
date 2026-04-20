@@ -1,0 +1,99 @@
+services:
+
+  database:
+    image: postgres:16
+    container_name: Contenedor_Database
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 4659
+      POSTGRES_DB: BD_Hipstagram
+    ports:
+      - "3000:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - hipstagram-net
+    # healthcheck para que los servicios esperen a que postgres esté listo
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  auth-service:
+    image: hipstagram/auth-service:${VERSION:-latest}   # imagen pre-construida por Jenkins
+    container_name: contenedor_auth-service
+    restart: always
+    ports:
+      - "3001:3001"
+    env_file:
+      - ./backend/auth-service/.env
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - hipstagram-net
+
+  post-service:
+    image: hipstagram/post-service:${VERSION:-latest}
+    container_name: contenedor_post-service
+    restart: always
+    ports:
+      - "3002:3002"
+    env_file:
+      - ./backend/post-service/.env
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - hipstagram-net
+
+  vote-service:
+    image: hipstagram/vote-service:${VERSION:-latest}
+    container_name: contenedor_vote-service
+    restart: always
+    ports:
+      - "3003:3003"
+    env_file:
+      - ./backend/vote-service/.env
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - hipstagram-net
+
+  comment-service:
+    image: hipstagram/comment-service:${VERSION:-latest}
+    container_name: contenedor_comment-service
+    restart: always
+    ports:
+      - "3004:3004"
+    env_file:
+      - ./backend/comment-service/.env
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - hipstagram-net
+
+  search-service:
+    image: hipstagram/search-service:${VERSION:-latest}
+    container_name: contenedor_search-service
+    restart: always
+    ports:
+      - "3005:3005"
+    env_file:
+      - ./backend/search-service/.env
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - hipstagram-net
+
+networks:
+  hipstagram-net:
+    driver: bridge
+
+volumes:
+  postgres_data:
