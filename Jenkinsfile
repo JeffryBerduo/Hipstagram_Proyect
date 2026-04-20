@@ -115,11 +115,11 @@ pipeline {
                     docker network create hipstagram-net 2>/dev/null || true
 
                     # Levantar base de datos primero
-                    docker stop  Contenedor_Database 2>/dev/null || true
-                    docker rm    Contenedor_Database 2>/dev/null || true
+                    docker stop  database 2>/dev/null || true
+                    docker rm    database 2>/dev/null || true
 
-                    docker run -d \
-                        --name Contenedor_Database \
+docker run -d \
+    --name database \
                         --network hipstagram-net \
                         --restart unless-stopped \
                         -p 3000:5432 \
