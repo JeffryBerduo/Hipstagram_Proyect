@@ -114,6 +114,24 @@ pipeline {
                 sh '''
                     docker network create hipstagram-net 2>/dev/null || true
 
+                    # Levantar base de datos primero
+                    docker stop  Contenedor_Database 2>/dev/null || true
+                    docker rm    Contenedor_Database 2>/dev/null || true
+
+                    docker run -d \
+                        --name Contenedor_Database \
+                        --network hipstagram-net \
+                        --restart unless-stopped \
+                        -p 3000:5432 \
+                        -e POSTGRES_USER=postgres \
+                        -e POSTGRES_PASSWORD=4659 \
+                        -e POSTGRES_DB=BD_Hipstagram \
+                        -v postgres_data:/var/lib/postgresql/data \
+                        postgres:16
+
+                    echo "Esperando que la base de datos inicie..."
+                    sleep 10
+
                     deploy() {
                         NAME=$1
                         PORT=$2
