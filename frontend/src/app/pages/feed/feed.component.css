@@ -12,9 +12,9 @@
 .encabezado {
   position: fixed;
   top: 0; left: 0; right: 0;
-  height: 60px;
-  background: white;
-  border-bottom: 4px solid #63381280;
+  height: 105px;
+  background: #111111;
+  border-bottom: 2px solid #ffffff;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -25,32 +25,31 @@
 .encabezado-logo {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 80px;
 }
 
-.logo-icono { width: 28px; height: 28px; }
+.logo-icono { width: 60px; height: 60px; }
 
 .logo-texto {
-  font-family: 'Dancing Script', cursive;
-  font-size: 28px;
+  font-family: 'Dancing Script';
+  font-size: 50px;
   font-weight: 700;
-  color: #633812;
+  color: #ffffff;
 }
 
 .encabezado-buscador {
   display: flex;
   align-items: center;
-  background: #e8e8e8;
-  border-radius: 10px;
-  padding: 8px 14px;
-  gap: 8px;
-  width: 260px;
+  background: #6a6a6a;
+  border-radius: 20px;
+  padding: 18px ;
+  width: 450px;
 }
 
 .encabezado-buscador svg {
-  width: 16px;
-  height: 16px;
-  stroke: #000000;
+  width: 20px;
+  height: 20px;
+  stroke: #ffffff;
   flex-shrink: 0;
 }
 
@@ -58,18 +57,18 @@
   border: none;
   outline: none;
   background: transparent;
-  font-size: 14px;
+  font-size: 17px;
   width: 100%;
 }
 
 .encabezado-acciones {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 80px;
 }
 
 .btn-encabezado {
-  background: none;
+  background:none;
   border: none;
   cursor: pointer;
   padding: 6px;
@@ -79,26 +78,24 @@
   transition: background 0.15s;
 }
 
-.btn-encabezado:hover { background: #f0f0f0; }
-
 .btn-encabezado svg {
-  width: 24px;
-  height: 24px;
-  stroke: #262626;
+  width: 45px;
+  height: 45px;
+  stroke: #ffffff;
 }
 
 /* ─── PERFIL DROPDOWN ─── */
 .perfil-menu { position: relative; }
 
 .btn-avatar {
-  width: 36px;
-  height: 36px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  background: rgba(48, 26, 4, 0.8);
+  background: rgba(107, 64, 21, 0.8);
   color: white;
   border: none;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 20px;
   cursor: pointer;
 }
 
@@ -106,8 +103,8 @@
   position: absolute;
   top: 48px;
   right: 0;
-  background: white;
-  border: 1px solid #e0d8ce;
+  background: #222222;
+  border:2px solid #fffdfd;
   border-radius: 10px;
   padding: 12px;
   min-width: 200px;
@@ -122,12 +119,12 @@
   padding: 4px 8px 12px;
 }
 
-.desplegable-info strong { font-size: 14px; color: #333; }
-.desplegable-info span   { font-size: 12px; color: #888; }
+.desplegable-info strong { font-size: 17px; color: #ffffff; }
+.desplegable-info span   { font-size: 15px; color: #ffffff; }
 
 .separador {
   border: none;
-  border-top: 1px solid #eee;
+  border-top: 1px solid #ffffff;
   margin: 0 0 8px;
 }
 
@@ -142,15 +139,14 @@
   border-radius: 6px;
   font-size: 15px;
   cursor: pointer;
-  color: #000000;
+  color: #ffffff;
 }
 
-.btn-cerrar-sesion:hover { background: #f5f5f5; }
 
 .btn-cerrar-sesion svg {
   width: 16px;
   height: 16px;
-  stroke: #000000;
+  stroke: #ffffff;
   fill: none;
 }
 
@@ -166,12 +162,13 @@
   max-width: 900px;
 }
 
-.feed { width: 100%; }
+.feed { width: 80%; }
 
 /* ─── POST ─── */
 .post {
-  background: white;
-  border: 1px solid #aaa8;
+  background: #111111;
+  box-shadow: 0 0 15px rgb(0, 0, 0);
+  border: 1px solid rgba(0, 0, 0, 0.533);
   border-radius: 12px;
   margin-bottom: 24px;
   overflow: hidden;
@@ -187,13 +184,12 @@
 .anillo-avatar {
   padding: 2px;
   border-radius: 50%;
-  background: linear-gradient(45deg, #000, #636363);
-  flex-shrink: 0;
+  background: #000000
 }
 
 .post-avatar {
-  width: 38px;
-  height: 38px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   border: 2px solid white;
   background: #efefef;
@@ -201,36 +197,23 @@
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 25px;
   color: #262626;
 }
 
 .post-info { flex: 1; }
 
 .post-usuario {
-  font-size: 14px;
+  font-size: 20px;
   font-weight: 600;
-  color: #262626;
+  color: #ffffff;
 }
 
 .post-fecha {
-  font-size: 12px;
-  color: #666;
+  font-size: 14px;
+  color: #c2c2c2;
 }
 
-.btn-menu-post {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 4px;
-  border-radius: 4px;
-}
-
-.btn-menu-post svg {
-  width: 20px;
-  height: 20px;
-  stroke: #262626;
-}
 
 .post-imagen {
   width: 100%;
@@ -241,7 +224,7 @@
 
 .post-texto {
   padding: 28px 20px;
-  background: #63381280;
+  background: #ffffff80;
   min-height: 180px;
   display: flex;
   align-items: center;
@@ -250,7 +233,7 @@
 }
 
 .post-texto p {
-  font-size: 18px;
+  font-size: 30px;
   font-weight: 500;
   color: #262626;
   line-height: 1.6;
@@ -283,20 +266,20 @@
 }
 
 .btn-icono svg {
-  width: 24px;
-  height: 24px;
-  stroke: #262626;
+  width: 35px;
+  height: 35px;
+  stroke: #949494;
   fill: none;
 }
 
 .btn-icono.liked svg   { stroke: #000000; fill: #f28181; }
 .btn-icono.disliked svg { stroke: #000000; fill: #000000; }
-.btn-dislike svg { width: 22px; height: 22px; }
+
 
 /* ─── CONTADORES ─── */
 .post-contadores {
   padding: 0 16px 6px;
-  font-size: 14px;
+  font-size: 20px;
   font-weight: 600;
   color: #262626;
 }
@@ -304,8 +287,8 @@
 /* ─── CAPTION Y HASHTAGS ─── */
 .post-caption {
   padding: 0 16px 6px;
-  font-size: 14px;
-  color: #262626;
+  font-size: 20px;
+  color: #ffffff;
   line-height: 1.5;
 }
 
@@ -325,8 +308,8 @@
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 14px;
-  color: #666;
+  font-size: 18px;
+  color: #ffffff;
   text-align: left;
 }
 
@@ -352,7 +335,7 @@
   justify-content: center;
   font-size: 11px;
   font-weight: 700;
-  color: #262626;
+  color: #ffffff;
   flex-shrink: 0;
 }
 
@@ -395,9 +378,9 @@
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 600;
-  color: #000000;
+  color: #ffffff;
 }
 
 /* ─── CARGAR MÁS ─── */
@@ -417,16 +400,7 @@
   cursor: pointer;
 }
 
-.btn-mas:hover { background: #f5f5f5; }
 
-.spinner {
-  width: 28px;
-  height: 28px;
-  border: 3px solid #f0f0f0;
-  border-top-color: #000;
-  border-radius: 50%;
-  animation: girar 0.8s linear infinite;
-}
 
 @keyframes girar { to { transform: rotate(360deg); } }
 
@@ -448,32 +422,6 @@
   border-radius: 12px;
 }
 
-/* ─── NAVBAR MOBILE ─── */
-.navbar {
-  position: fixed;
-  bottom: 0; left: 0; right: 0;
-  height: 52px;
-  background: white;
-  border-top: 1px solid #aaa8;
-  display: none;
-  justify-content: space-around;
-  align-items: center;
-  z-index: 200;
-}
-
-.btn-nav {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 8px 20px;
-  border-radius: 8px;
-}
-
-.btn-nav svg {
-  width: 24px;
-  height: 24px;
-  stroke: #262626;
-}
 
 /* ─── RESPONSIVE ─── */
 @media (max-width: 600px) {
@@ -481,5 +429,4 @@
   .logo-texto { font-size: 20px; }
   .contenido { margin-top: 70px; margin-bottom: 60px; padding: 0; }
   .post { border-radius: 0; border-left: none; border-right: none; margin-bottom: 8px; }
-  .navbar { display: flex; }
 }

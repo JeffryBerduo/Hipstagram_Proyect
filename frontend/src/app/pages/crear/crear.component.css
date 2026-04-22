@@ -3,7 +3,7 @@
 :host {
   display: block;
   min-height: 100vh;
-  background: #fafafa;
+  background: #fafafa00;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
@@ -14,13 +14,13 @@
   position: fixed;
   top: 0; left: 0; right: 0;
   height: 60px;
-  background: #d1cfcf;
-  border-bottom: 2px solid #2d1907;
+  background: #9f9f9f;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 16px;
   z-index: 100;
+  border-bottom: 2px solid #ffffff;
 }
 
 .btn-volver {
@@ -36,13 +36,13 @@
 }
 
 .btn-volver svg {
-  width: 24px;
-  height: 24px;
-  stroke: #2d1907;
+  width: 30px;
+  height: 30px;
+  stroke: #000000;
 }
 
 .header-titulo {
-  font-size: 16px;
+  font-size: 25px;
   font-weight: 600;
   color: #000000;
 }
@@ -55,16 +55,18 @@
 .contenido {
   display: flex;
   justify-content: center;
-  padding: 80px 20px 40px;
+  padding: 0 0 20px;
+  width: 100%;
 }
 
 .card {
-  background: #ffffff;
-  border: 1px solid #989898;
+  background: #111111;
+  border: 1px solid #000000;
   border-radius: 12px;
   padding: 28px 24px;
   width: 100%;
-  max-width: 500px;
+  max-width: 499px;
+  box-shadow: 0 0 20px rgb(0, 0, 0);
 }
 
 /* ─── CAMPOS ─── */
@@ -72,9 +74,9 @@
 
 .etiqueta {
   display: block;
-  font-size: 13px;
+  font-size: 17px;
   font-weight: 600;
-  color: #000000;
+  color: #ffffff;
   margin-bottom: 8px;
 }
 
@@ -90,16 +92,16 @@
   outline: none;
   transition: border-color 0.2s;
   line-height: 1.5;
-  background: #f1f1f1;
+  background: #ffffff5e;
 }
 
-.textarea:focus { border-color: #000000; background: #f1f1f1; }
+.textarea:focus { border-color: #000000; background: #ffffff5e; }
 .textarea::placeholder { color: #000000; }
 
 .contador-chars {
   text-align: right;
-  font-size: 12px;
-  color: #000000;
+  font-size: 15px;
+  color: #ffffff;
   margin-top: 5px;
 }
 
@@ -118,10 +120,10 @@
   color: #000000;
   outline: none;
   transition: border-color 0.2s;
-  background: #f1f1f1;
+  background: #ffffff5e;
 }
 
-.input:focus { border-color: #000000; background: #f1f1f1; }
+.input:focus { border-color: #000000; background: #ffffff5e; }
 .input::placeholder { color: #000000; }
 
 /* ─── HASHTAG CHIPS ─── */

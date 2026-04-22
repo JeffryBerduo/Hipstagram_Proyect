@@ -1,13 +1,13 @@
 .pagina-admin {
   min-height: 100vh;
-  background: #e0e0e0;
+  background: #111111;
   display: flex;
   flex-direction: column;
 }
 
 .header-admin {
-  background-color: #fff;
-  border-bottom: 4px solid #633812;
+  background-color: #111111;
+  border-bottom: 4px solid #ffffff;
   padding: 1.5rem 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   position: sticky;
@@ -23,19 +23,12 @@
   padding: 0;
 }
 
-.tabla-auditoria-contenedor {
-  max-height: 400px;
-  overflow-y: auto;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-}
-
 .titulo-admin {
   font-size: 1.8rem;
   font-weight: 700;
   margin: 0;
-  color: #633812;
-  -webkit-text-fill-color: #633812;
+  color: #ffffff;
+  -webkit-text-fill-color: #fffaf5;
 }
 
 .header-acciones {
@@ -54,14 +47,10 @@
   font-weight: 600;
   font-size: 14px;
   transition: all 0.3s;
+  color: #000000;
 }
 
-.btn-volver svg,
-.btn-logout svg {
-  width: 20px;
-  height: 20px;
-  stroke: currentColor;
-}
+
 
 /* CONTENIDO */
 .contenido-admin {
@@ -74,11 +63,11 @@
 
 .seccion-panel,
 .seccion-info {
-  background-color: #fff;
+  background-color: #111111;
   border-radius: 12px;
   padding: 2rem;
   margin-bottom: 2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 20px #000000;
 }
 
 .seccion-header {
@@ -92,7 +81,18 @@
   font-size: 1.5rem;
   font-weight: 700;
   margin: 0;
-  color: #222222;
+  color: #ffffff;
+}
+
+.contador {
+  color: #ffffff;
+  font-size: 13px;
+}
+
+.estado-vacio p {
+  color: #ffffff;
+  text-align: center;
+  padding: 16px 0;
 }
 
 .formulario-palabra {
@@ -103,16 +103,25 @@
 
 .input-palabra {
   flex: 1;
-  border: 4px solid #000000;
+  border: none;
   padding: 0.75rem 1rem;
   border-radius: 8px;
   font-size: 1rem;
-  transition: border-color 0.3s;
+  background: #222222;
+  color: #ffffff;
+}
+
+.input-palabra:focus {
+  outline: none;
+}
+
+.input-palabra::placeholder {
+  color: #aaaaaa;
 }
 
 .btn-agregar {
-  background: linear-gradient(45deg, #222222);
-  color: white;
+  background: #a8a8a8;
+  color: #000000;
   border: none;
   padding: 0.75rem 1.5rem;
   border-radius: 8px;
@@ -124,10 +133,11 @@
   transition: opacity 0.3s;
 }
 
+
 .btn-agregar svg {
   width: 20px;
   height: 20px;
-  stroke: white;
+  stroke: #000000;
 }
 
 .tabla-palabras {
@@ -136,24 +146,30 @@
 }
 
 .tabla-palabras thead {
-  background-color: #f7f7f7;
-  border-bottom: 2px solid #e0e0e0;
+  background-color: #333333;
+  border-bottom: 2px solid #ffffff;
 }
 
 .tabla-palabras th {
   padding: 1rem;
   text-align: left;
   font-weight: 600;
-  color: #333;
+  color: #ffffff;
 }
 
 .tabla-palabras td {
   padding: 1rem;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid #333333;
+  color: #ffffff;
 }
 
+.tabla-palabras td strong {
+  color: #ffffff;
+}
+
+
 .numero {
-  color: #999;
+  color: #ffffff;
   font-weight: 600;
   width: 50px;
 }
@@ -166,8 +182,27 @@
   text-align: right;
 }
 
+.badge-palabra {
+  color: #ffffff;
+  font-size: 13px;
+}
+
+.texto-secundario {
+  font-size: 13px;
+  color: #aaaaaa;
+  margin-top: 2px;
+}
+
+.texto-terciario {
+  font-size: 12px;
+  color: #666666;
+  margin-top: 2px;
+}
+
 .btn-eliminar {
-  color: #000000;
+  background: #333333;
+  color: #ffffff;
+  border: 1px solid #555555;
   padding: 0.5rem 1rem;
   border-radius: 6px;
   cursor: pointer;
@@ -181,12 +216,12 @@
 .btn-eliminar svg {
   width: 18px;
   height: 18px;
-  stroke: currentColor;
+  stroke: #ffffff;
 }
 
 .btn-aprobar {
-  background: #4a7c59;
-  color: white;
+  background: #00ff4c;
+  color: #000000;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 6px;
@@ -198,7 +233,7 @@
 
 .btn-rechazar {
   background: #c0392b;
-  color: white;
+  color: #ffffff;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 6px;
@@ -207,3 +242,37 @@
   font-size: 13px;
 }
 
+
+.tabla-auditoria-contenedor {
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid #333333;
+  border-radius: 8px;
+}
+
+.grid-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.info-item {
+  font-size: 14px;
+}
+
+.label {
+  color: #aaaaaa;
+}
+
+.valor {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.filtros-auditoria {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+}

@@ -12,12 +12,12 @@
 
 .container {
   width: 100%;
-  max-width: 360px;
+  max-width: 450px;
   padding: 0 24px;
 }
 
 .card {
-  background: rgba(245, 245, 220, 0.9);
+  background: rgba(63, 63, 63, 0.9);
   border-radius: 8px;
   padding: 48px 32px 32px;
   display: flex;
@@ -27,10 +27,10 @@
 
 .logo-titulo {
   font-family: 'Dancing Script', cursive;
-  font-size: 22px;
+  font-size: 40px;
   font-weight: 600;
   letter-spacing: 6px;
-  color: #4a7c59;
+  color: #4ddd30;
   margin-bottom: 20px;
   text-transform: uppercase;
 }
@@ -38,7 +38,7 @@
 .logo-icono {
   width: 60px;
   height: 60px;
-  border: 2px solid #222;
+  border: 2px solid #ffffff;
   border-radius: 16px;
   display: flex;
   align-items: center;
@@ -49,14 +49,14 @@
 .logo-icono svg {
   width: 32px;
   height: 32px;
-  stroke: #222;
+  stroke: #ffffff;
   fill: none;
 }
 
 .slogan {
   font-family: 'Dancing Script';
   font-size: 30px;
-  color: #b5651d;
+  color: #e27618;
   margin-bottom: 32px;
 }
 
@@ -68,8 +68,8 @@
 .input-group label {
   display: block;
   font-family: 'Montserrat', sans-serif;
-  font-size: 13px;
-  color: #333;
+  font-size: 20px;
+  color: #ffffff;
   margin-bottom: 6px;
 }
 
@@ -94,8 +94,8 @@
   outline: none;
   background: transparent;
   font-family: 'Montserrat', sans-serif;
-  font-size: 14px;
-  color: #333;
+  font-size: 17px;
+  color: #ffffff;
   width: 100%;
 }
 
@@ -114,43 +114,25 @@
   transition: background 0.2s;
 }
 
-.btn:hover:not(:disabled) {
-  background: #9a4f14;
-}
-
-.btn:disabled {
-  opacity: 0.6;
-  cursor: default;
-}
-
-
-.error {
-  color: red;
-  font-size: 13px;
-  margin-top: 8px;
-  text-align: center;
-}
 
 .signup-box {
   text-align: center;
-  margin-top: 16px;
+  margin-top: 20px;
   font-family: 'Montserrat', sans-serif;
-  font-size: 13px;
-  color: #000000;
-  border-top: 1px solid #eee;
-  padding-top: 16px;
+  font-size: 20px;
+  color: #ffffff;
 }
 
 .signup-box a {
-  color: #063394;
+  color: #00ffff;
   font-weight: 600;
   text-decoration: none;
 }
 
 .signup-box {
-  background: rgba(245, 245, 220, 0.8);
+  background: rgba(63, 63, 63, 0.9);
   border-radius: 8px;
-  padding: 5px;
+  padding: 15px;
   text-align: center;
   margin-top: 12px;
   width: 100%;

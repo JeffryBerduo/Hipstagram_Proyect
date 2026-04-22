@@ -3,17 +3,9 @@
   display: flex;            /* activa flexbox */
   align-items: center;      /* centra verticalmente */
   justify-content: center;  /* centra horizontalmente */
-  background-color: #fafafa;
+  background-color: #0f0f0f;
 }
 
-.tarjeta {
-  background: rgb(219, 30, 30);
-  border: 1px solid #dbdbdb;
-  border-radius: 8px;
-  padding: 40px 32px;
-  width: 100%;
-  max-width: 360px;         /* limita el ancho máximo */
-}
 
 
 * {

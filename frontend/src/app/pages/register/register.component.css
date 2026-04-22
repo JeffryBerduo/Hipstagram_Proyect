@@ -13,12 +13,12 @@
 
 .container {
   width: 100%;
-  max-width: 360px;
+  max-width: 450px;
   padding: 0 24px;
 }
 
 .card {
-  background: rgba(245, 245, 220, 0.9);
+  background: rgba(63, 63, 63, 0.9);
   border-radius: 8px;
   padding: 48px 32px 32px;
   display: flex;
@@ -36,14 +36,14 @@
 
 .titulo {
   font-family: 'Dancing Script', cursive;
-  font-size: 28px;
-  color: #4a7c59;
+  font-size: 45px;
+  color: #ff9900;
 }
 
 .icono-lapiz {
   width: 28px;
   height: 28px;
-  stroke: #b5651d;
+  stroke: #ff9900;
   fill: none;
 }
 
@@ -55,8 +55,8 @@
 .input-group label {
   display: block;
   font-family: 'Montserrat', sans-serif;
-  font-size: 13px;
-  color: #333;
+  font-size: 20px;
+  color: #ffffff;
   margin-bottom: 6px;
 }
 
@@ -88,8 +88,8 @@
 
 .slogan {
   font-family: 'Dancing Script', cursive;
-  font-size: 20px;
-  color: #b5651d;
+  font-size: 30px;
+  color: #ff7700;
   margin: 24px 0;
   text-align: center;
 }
@@ -108,42 +108,26 @@
   transition: background 0.2s;
 }
 
-.btn:hover:not(:disabled) {
-  background: #9a4f14;
-}
-
-.btn:disabled {
-  opacity: 0.6;
-  cursor: default;
-}
-
-.error {
-  color: red;
-  font-size: 13px;
-  margin-top: 8px;
-  text-align: center;
-}
 
 .login-box {
   text-align: center;
   margin-top: 16px;
   font-family: 'Montserrat', sans-serif;
-  font-size: 13px;
+  font-size: 17px;
   color: #000000;
-  border-top: 1px solid #eee;
   padding-top: 16px;
 }
 
 .login-box a {
-  color: #063394;
+  color: #04fff2;
   font-weight: 600;
   text-decoration: none;
 }
 
 .login-box {
-  background: rgba(245, 245, 220, 0.8);
+  background: rgba(63, 63, 63, 0.9);
   border-radius: 8px;
-  padding: 5px;
+  padding: 15px;
   text-align: center;
   margin-top: 12px;
   width: 100%;
