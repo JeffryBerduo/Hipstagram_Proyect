@@ -155,3 +155,18 @@
   justify-content: center;
   min-height: 46px;
 }
+
+.input-archivo {
+  width: 100%;
+  padding: 8px 0;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.preview-imagen {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-top: 12px;
+}

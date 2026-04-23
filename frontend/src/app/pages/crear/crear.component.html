@@ -32,6 +32,22 @@
         />
       </div>
 
+      <div class="campo">
+        <label class="etiqueta">Imagen (opcional)</label>
+        <input
+          type="file"
+          accept="image/*"
+          class="input-archivo"
+          (change)="seleccionarImagen($event)"
+        />
+        <img
+          *ngIf="previewImagen"
+          [src]="previewImagen"
+          class="preview-imagen"
+          alt="Preview"
+        />
+      </div>
+
       <p class="error" *ngIf="error">{{ error }}</p>
 
       <button

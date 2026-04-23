@@ -22,12 +22,12 @@ export class PublicacionServicio {
     );
   }
 
-  crearPost(description: string, hashtags: string[] = []) {
-    return this.http.post<{ message: string, publicacion: Publicacion }>(
-      `${this.url}/api/posts`,
-      { description, hashtags }
-    );
-  }
+crearPost(description: string, hashtags: string[] = [], image_url: string = '') {
+  return this.http.post<{ message: string, publicacion: Publicacion }>(
+    `${this.url}/api/posts`,
+    { description, hashtags, image_url }
+  );
+}
 
   eliminarPost(id: number) {
     return this.http.delete<{ message: string }>(
