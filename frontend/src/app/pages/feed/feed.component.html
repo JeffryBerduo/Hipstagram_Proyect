@@ -132,7 +132,12 @@
                 />
               </svg>
             </button>
-            <button class="btn-icono" (click)="verComentarios(post.id)">
+
+            <button
+              class="btn-icono"
+              [class.comentando]="postAbierto === post.id"
+              (click)="verComentarios(post.id)"
+            >
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
@@ -173,14 +178,6 @@
         <div class="post-hashtags" *ngIf="post.hashtags?.length">
           {{ post.hashtags!.map(h => '#' + h).join(' ') }}
         </div>
-
-        <button
-          class="btn-ver-comentarios"
-          *ngIf="postAbierto !== post.id"
-          (click)="verComentarios(post.id)"
-        >
-          Ver los {{ comentarios[post.id]?.length || '' }} comentarios
-        </button>
 
         <div class="comentarios" *ngIf="postAbierto === post.id">
           <div class="comentario" *ngFor="let c of comentarios[post.id]">
