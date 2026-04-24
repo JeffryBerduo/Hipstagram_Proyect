@@ -31,7 +31,6 @@ export class CrearComponent {
       .filter((h) => h.length > 0);
   }
 
-  // ← nuevo
   seleccionarImagen(evento: Event) {
     const archivo = (evento.target as HTMLInputElement).files?.[0];
     if (!archivo) return;
@@ -45,6 +44,7 @@ export class CrearComponent {
   }
 
   publicar() {
+    console.log('imagen base64:', this.imagenBase64?.substring(0, 50));
     if (!this.descripcion.trim()) {
       this.error = 'La descripción es requerida.';
       return;
@@ -60,7 +60,7 @@ export class CrearComponent {
       .crearPost(
         this.descripcion.trim(),
         this.hashtags,
-        this.imagenBase64, // ← nuevo
+        this.imagenBase64,
       )
       .subscribe({
         next: () => this.router.navigate(['/feed']),
