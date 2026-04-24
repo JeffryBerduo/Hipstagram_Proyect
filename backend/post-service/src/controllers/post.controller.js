@@ -90,7 +90,7 @@ const createPost = async (req, res) => {
     return res.status(400).json({ message: "hashtags debe ser un arreglo" });
   }
 
-  const image_url = null;
+  const image_url = req.body.image_url || null;
 
   // Verificar palabras prohibidas
   const palabras = await pool.query("SELECT palabra FROM palabras_prohibidas");

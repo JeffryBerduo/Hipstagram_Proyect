@@ -157,7 +157,7 @@
 .contenido {
   display: flex;
   justify-content: center;
-  margin: 80px auto 80px;
+  margin: 115px auto 80px;
   padding: 0 20px;
   width: 100%;
   max-width: 900px;
@@ -350,7 +350,7 @@
   align-items: center;
   gap: 8px;
   padding: 10px 16px;
-  border-top: 1px solid #000000;
+  border-top: 1px solid #ffffff;
 }
 
 .mi-avatar {

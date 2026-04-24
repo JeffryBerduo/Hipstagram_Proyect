@@ -71,9 +71,6 @@
         </div>
 
         <img *ngIf="post.image_url" [src]="post.image_url" class="post-imagen" [alt]="post.description"/>
-        <div class="post-texto" *ngIf="!post.image_url">
-          <p>{{ post.description }}</p>
-        </div>
 
         <div class="post-acciones">
           <div class="grupo-acciones">
@@ -100,7 +97,7 @@
           <span *ngIf="votos[post.id]?.dislikes">&nbsp;·&nbsp;<strong>{{ votos[post.id]?.dislikes }}</strong> no me gusta</span>
         </div>
 
-        <div class="post-caption" *ngIf="post.image_url && post.description">
+        <div class="post-caption" *ngIf="post.description">
           <span class="caption-usuario">{{ post.username }}</span>{{ post.description }}
         </div>
 
