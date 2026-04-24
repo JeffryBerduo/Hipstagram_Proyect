@@ -1,0 +1,65 @@
+<div class="pagina">
+
+  <header class="header">
+    <button class="btn-volver" (click)="volver()">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+    </button>
+    <span class="header-titulo">Nueva publicación</span>
+    <div class="header-placeholder"></div>
+  </header>
+
+  <div class="contenido">
+    <div class="card">
+
+      <div class="campo">
+        <label class="etiqueta">Descripción</label>
+        <textarea
+          class="textarea"
+          rows="5"
+          [(ngModel)]="descripcion"
+        ></textarea>
+        <div class="contador-chars" [class.excedido]="descripcion.length > 128">{{ descripcion.length }}/128</div>
+      </div>
+
+      <div class="campo">
+        <label class="etiqueta">Hashtags</label>
+        <input
+          class="input"
+          type="text"
+          [(ngModel)]="hashtagInput"
+        />
+      </div>
+
+      <div class="campo">
+        <label class="etiqueta">Imagen (opcional)</label>
+        <input
+          type="file"
+          accept="image/*"
+          class="input-archivo"
+          (change)="seleccionarImagen($event)"
+        />
+        <img
+          *ngIf="previewImagen"
+          [src]="previewImagen"
+          class="preview-imagen"
+          alt="Preview"
+        />
+      </div>
+
+      <p class="error" *ngIf="error">{{ error }}</p>
+
+      <button
+        class="btn-publicar"
+        [disabled]="!descripcion.trim() || enviando"
+        (click)="publicar()"
+      >
+        <span *ngIf="!enviando">Publicar</span>
+        <span *ngIf="enviando" class="spinner"></span>
+      </button>
+
+    </div>
+  </div>
+
+</div>

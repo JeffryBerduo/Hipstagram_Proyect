@@ -1,0 +1,188 @@
+<div class="pagina-admin">
+
+  <!-- HEADER -->
+  <header class="header-admin">
+    <div class="header-contenido">
+      <h1 class="titulo-admin">Panel de Administración</h1>
+      <div class="header-acciones">
+        <button class="btn-agregar" (click)="actualizarTodo()">Actualizar</button>
+        <button class="btn-volver" (click)="volverAlFeed()">Volver</button>
+        <button class="btn-logout" (click)="cerrarSesion()">Cerrar sesión</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENIDO -->
+  <div class="contenido-admin">
+
+    <!-- SECCIÓN DE PALABRAS PROHIBIDAS -->
+    <div class="seccion-panel">
+      <div class="seccion-header">
+        <h3 class="seccion-titulo">Gestión de Palabras Prohibidas</h3>
+        <span class="contador">{{ palabrasProhibidas.length }} palabras</span>
+      </div>
+
+      <div class="formulario-palabra">
+        <input type="text" [(ngModel)]="nuevaPalabra" placeholder="Ingresar" (keyup.enter)="agregarPalabra()" class="input-palabra" />
+        <button (click)="agregarPalabra()" class="btn-agregar">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19" />
+            <line x1="5" y1="12" x2="19" y2="12" />
+          </svg>
+          Agregar
+        </button>
+      </div>
+
+      <div class="lista-palabras">
+        <div *ngIf="!cargando && palabrasProhibidas.length === 0" class="estado-vacio">
+          <p>No hay palabras prohibidas</p>
+        </div>
+        <div *ngIf="!cargando && palabrasProhibidas.length > 0" class="tabla-contenedor">
+          <table class="tabla-palabras">
+            <tbody>
+              <tr *ngFor="let p of palabrasProhibidas; let idx = index">
+                <td class="palabra">
+                  <span class="badge-palabra">{{ p.palabra }}</span>
+                </td>
+                <td class="acciones">
+                  <button (click)="eliminarPalabra(p.id)" class="btn-eliminar" title="Eliminar palabra">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="3 6 5 6 21 6" />
+                      <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2" />
+                    </svg>
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN GESTIÓN DE USUARIOS -->
+    <div class="seccion-panel">
+      <div class="seccion-header">
+        <h3 class="seccion-titulo">Gestión de Usuarios</h3>
+        <span class="contador">{{ usuarios.length }} usuarios</span>
+      </div>
+
+      <div *ngIf="cargandoUsuarios" class="estado-vacio">
+        <p>Cargando...</p>
+      </div>
+
+      <div *ngIf="!cargandoUsuarios && usuarios.length === 0" class="estado-vacio">
+        <p>No hay usuarios</p>
+      </div>
+
+      <table class="tabla-palabras" *ngIf="!cargandoUsuarios && usuarios.length > 0">
+        <tbody>
+          <tr *ngFor="let u of usuarios">
+            <td class="palabra">
+              <div><strong>{{ u.username }}</strong></div>
+              <div class="texto-secundario">{{ u.email }}</div>
+            </td>
+            <td>
+              <span [style.color]="u.role === 'ADMIN' ? '#4a7c59' : '#ffffff'" style="font-size:13px;">
+                {{ u.role }}
+              </span>
+            </td>
+            <td class="acciones">
+              <button (click)="toggleUsuario(u.id)" [class]="u.is_active ? 'btn-rechazar' : 'btn-aprobar'" [disabled]="u.role === 'ADMIN'">
+                {{ u.is_active ? 'Desactivar' : 'Activar' }}
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SECCIÓN PUBLICACIONES PENDIENTES -->
+    <div class="seccion-panel">
+      <div class="seccion-header">
+        <h3 class="seccion-titulo">Publicaciones Pendientes</h3>
+        <span class="contador">{{ publicacionesPendientes.length }} pendientes</span>
+      </div>
+
+      <div *ngIf="!cargandoPendientes && publicacionesPendientes.length === 0" class="estado-vacio">
+        <p>No hay publicaciones pendientes</p>
+      </div>
+
+      <table class="tabla-palabras" *ngIf="!cargandoPendientes && publicacionesPendientes.length > 0">
+        <tbody>
+          <tr *ngFor="let post of publicacionesPendientes">
+            <td class="palabra">
+              <div><strong>@{{ post.username }}</strong></div>
+              <div class="texto-secundario">{{ post.description }}</div>
+              <div class="texto-terciario">{{ post.created_at | date:'dd/MM/yyyy HH:mm' }}</div>
+            </td>
+            <td class="acciones" style="display:flex; gap:8px;">
+              <button (click)="aprobarPost(post.id)" class="btn-aprobar">Aprobar</button>
+              <button (click)="rechazarPost(post.id)" class="btn-rechazar">Rechazar</button>
+              <button (click)="eliminarPostAdmin(post.id)" class="btn-eliminar">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SECCIÓN AUDITORÍA -->
+    <div class="seccion-panel">
+      <div class="seccion-header">
+        <h3 class="seccion-titulo">Log de Auditoría</h3>
+        <span class="contador">Últimos {{ auditoria.length }} registros</span>
+      </div>
+
+      <div *ngIf="cargandoAuditoria" class="estado-vacio">
+        <p>Cargando...</p>
+      </div>
+
+      <div *ngIf="!cargandoAuditoria && auditoria.length === 0" class="estado-vacio">
+        <p>No hay registros de auditoría</p>
+      </div>
+
+      <div class="tabla-auditoria-contenedor">
+        <table class="tabla-palabras" *ngIf="!cargandoAuditoria && auditoria.length > 0">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Usuario</th>
+              <th>Rol</th>
+              <th>Acción</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let r of auditoria">
+              <td class="texto-terciario" style="white-space:nowrap">{{ r.timestamp | date:'dd/MM/yyyy HH:mm' }}</td>
+              <td><strong>{{ r.username || 'Sistema' }}</strong></td>
+              <td>{{ r.rol }}</td>
+              <td><span class="badge-palabra">{{ r.accion }}</span></td>
+              <td>
+                <span [style.color]="r.resultado === 'SUCCESS' ? '#00ff4c' : '#c0392b'" style="font-weight:600;">
+                  {{ r.resultado }}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SECCIÓN DE INFORMACIÓN -->
+    <div class="seccion-info">
+      <h3 class="seccion-titulo">Información del Sistema</h3>
+      <div class="grid-info">
+        <div class="info-item">
+          <span class="label">Usuario: </span>
+          <span class="valor">{{ usuario?.username }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Email: </span>
+          <span class="valor">{{ usuario?.email }}</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

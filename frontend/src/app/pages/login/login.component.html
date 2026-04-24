@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="card">
+
+    <div class="logo-titulo">Hipstagram</div>
+
+    <div class="logo-icono">
+      <svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="5"/>
+        <circle cx="12" cy="12" r="5"/>
+        <circle cx="17.5" cy="6.5" r="1" fill="#222" stroke="none"/>
+      </svg>
+    </div>
+
+    <div class="slogan">Comparte tu mundo</div>
+
+    <div class="input-group">
+      <label>Email</label>
+      <div class="input-con-icono">
+        <input type="email" [(ngModel)]="email" />
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label>Password</label>
+      <div class="input-con-icono">
+        <input [type]="mostrarContrasena ? 'text' : 'password'" [(ngModel)]="contrasena" />
+      </div>
+    </div>
+
+    <p class="error" *ngIf="error">{{ error }}</p>
+
+    <button class="btn" (click)="iniciarSesion()" [disabled]="cargando">
+      {{ cargando ? 'Entrando...' : 'Iniciar sesión' }}
+    </button>
+
+  </div>
+
+  <div class="signup-box">
+    <p>¿No tienes cuenta? <a routerLink="/register">Regístrate</a></p>
+  </div>
+</div>

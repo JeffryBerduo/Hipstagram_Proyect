@@ -1,0 +1,278 @@
+.pagina-admin {
+  min-height: 100vh;
+  background: #111111;
+  display: flex;
+  flex-direction: column;
+}
+
+.header-admin {
+  background-color: #111111;
+  border-bottom: 4px solid #ffffff;
+  padding: 1.5rem 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-contenido {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0;
+}
+
+.titulo-admin {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0;
+  color: #ffffff;
+  -webkit-text-fill-color: #fffaf5;
+}
+
+.header-acciones {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.btn-volver,
+.btn-logout {
+  background-color: #a8a8a8;
+  border: 1px solid #424242;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s;
+  color: #000000;
+}
+
+
+
+/* CONTENIDO */
+.contenido-admin {
+  flex: 1;
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 2rem 1rem;
+}
+
+.seccion-panel,
+.seccion-info {
+  background-color: #111111;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 0 20px #000000;
+}
+
+.seccion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.seccion-titulo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+  color: #ffffff;
+}
+
+.contador {
+  color: #ffffff;
+  font-size: 13px;
+}
+
+.estado-vacio p {
+  color: #ffffff;
+  text-align: center;
+  padding: 16px 0;
+}
+
+.formulario-palabra {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.input-palabra {
+  flex: 1;
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: #222222;
+  color: #ffffff;
+}
+
+.input-palabra:focus {
+  outline: none;
+}
+
+.input-palabra::placeholder {
+  color: #aaaaaa;
+}
+
+.btn-agregar {
+  background: #a8a8a8;
+  color: #000000;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: opacity 0.3s;
+}
+
+
+.btn-agregar svg {
+  width: 20px;
+  height: 20px;
+  stroke: #000000;
+}
+
+.tabla-palabras {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabla-palabras thead {
+  background-color: #333333;
+  border-bottom: 2px solid #ffffff;
+}
+
+.tabla-palabras th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.tabla-palabras td {
+  padding: 1rem;
+  border-bottom: 1px solid #333333;
+  color: #ffffff;
+}
+
+.tabla-palabras td strong {
+  color: #ffffff;
+}
+
+
+.numero {
+  color: #ffffff;
+  font-weight: 600;
+  width: 50px;
+}
+
+.palabra {
+  width: auto;
+}
+
+.acciones {
+  text-align: right;
+}
+
+.badge-palabra {
+  color: #ffffff;
+  font-size: 13px;
+}
+
+.texto-secundario {
+  font-size: 13px;
+  color: #aaaaaa;
+  margin-top: 2px;
+}
+
+.texto-terciario {
+  font-size: 12px;
+  color: #666666;
+  margin-top: 2px;
+}
+
+.btn-eliminar {
+  background: #333333;
+  color: #ffffff;
+  border: 1px solid #555555;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s;
+}
+
+.btn-eliminar svg {
+  width: 18px;
+  height: 18px;
+  stroke: #ffffff;
+}
+
+.btn-aprobar {
+  background: #00ff4c;
+  color: #000000;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+
+.btn-rechazar {
+  background: #c0392b;
+  color: #ffffff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+
+.tabla-auditoria-contenedor {
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid #333333;
+  border-radius: 8px;
+}
+
+.grid-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.info-item {
+  font-size: 14px;
+}
+
+.label {
+  color: #aaaaaa;
+}
+
+.valor {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.filtros-auditoria {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+}
